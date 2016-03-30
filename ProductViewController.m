@@ -40,6 +40,7 @@
     
     if ([self.title isEqualToString:@"Apple mobile devices"]) {
         self.products = @[@"iPad", @"iPod Touch",@"iPhone"];
+<<<<<<< HEAD
     } else  if ([self.title isEqualToString:@"Samsung mobile devices"]) {
         self.products = @[@"Galaxy S7", @"Galaxy Note", @"Galaxy Tab"];
     } else  if ([self.title isEqualToString:@"Microsoft mobile devices"]) {
@@ -48,6 +49,11 @@
         self.products = @[@"HTC One A9", @"HTC One M9", @"HTC Desire 626"];
     }
 
+=======
+    } else {
+        self.products = @[@"Galaxy S4", @"Galaxy Note", @"Galaxy Tab"];
+    }
+>>>>>>> c6d5c0ecd0ea83e7b9e57e59e86a24aa7151b753
     [self.tableView reloadData];
 }
 
@@ -61,14 +67,22 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+<<<<<<< HEAD
 // #warning Potentially incomplete method implementation.
+=======
+#warning Potentially incomplete method implementation.
+>>>>>>> c6d5c0ecd0ea83e7b9e57e59e86a24aa7151b753
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+<<<<<<< HEAD
 // #warning Incomplete method implementation.
+=======
+#warning Incomplete method implementation.
+>>>>>>> c6d5c0ecd0ea83e7b9e57e59e86a24aa7151b753
     // Return the number of rows in the section.
     return [self.products count];
 }
@@ -82,6 +96,7 @@
     }
     // Configure the cell...
     cell.textLabel.text = [self.products objectAtIndex:[indexPath row]];
+<<<<<<< HEAD
 //    return cell;
     
     
@@ -147,6 +162,11 @@
 
 
 
+=======
+    return cell;
+}
+
+>>>>>>> c6d5c0ecd0ea83e7b9e57e59e86a24aa7151b753
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

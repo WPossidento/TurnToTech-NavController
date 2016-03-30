@@ -29,11 +29,14 @@
       "idiom" : "ipad",
       "size" : "76x76",
       "scale" : "2x"
+<<<<<<< HEAD
     },
     {
       "idiom" : "ipad",
       "size" : "83.5x83.5",
       "scale" : "2x"
+=======
+>>>>>>> c6d5c0ecd0ea83e7b9e57e59e86a24aa7151b753
     }
   ],
   "info" : {
