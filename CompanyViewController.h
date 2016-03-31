@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
 @class ProductViewController;
 
@@ -15,5 +16,7 @@
 @property (nonatomic, retain) NSArray *companyList;
 
 @property (nonatomic, retain) IBOutlet  ProductViewController * productViewController;
+
+
 
 @end

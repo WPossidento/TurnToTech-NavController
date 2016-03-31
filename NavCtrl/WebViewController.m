@@ -52,7 +52,16 @@
 
     NSURLRequest *myRequest = [NSURLRequest requestWithURL:myURL];
     
-    [myWebView loadRequest:myRequest];
+// This is for the old UIWebView:
+//    [myWebView loadRequest:myRequest];
+    
+// Had to go to Project, click on General, scroll down to Linked Frameworks and Libraries, and add WebKit.framework as Optional to permit WKWebView:
+    _wkWebView = [[WKWebView alloc] initWithFrame:self.view.frame];
+    
+    [_wkWebView loadRequest:myRequest];
+    
+    _wkWebView.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
+    [self.view addSubview:_wkWebView];
     
 }
 

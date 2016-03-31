@@ -34,15 +34,10 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    
-<<<<<<< HEAD
+
     self.companyList = @[@"Apple mobile devices",@"Samsung mobile devices",@"Microsoft mobile devices",@"HTC mobile devices"];
-=======
-    self.companyList = @[@"Apple mobile devices",@"Samsung mobile devices"];
->>>>>>> c6d5c0ecd0ea83e7b9e57e59e86a24aa7151b753
-    self.title = @"Mobile device makers";
-    
+
+    self.title = @"Mobile device makers";    
     
 }
 
@@ -56,22 +51,15 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-<<<<<<< HEAD
+
 // #warning Potentially incomplete method implementation.
-=======
-#warning Potentially incomplete method implementation.
->>>>>>> c6d5c0ecd0ea83e7b9e57e59e86a24aa7151b753
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-<<<<<<< HEAD
 // #warning Incomplete method implementation.
-=======
-#warning Incomplete method implementation.
->>>>>>> c6d5c0ecd0ea83e7b9e57e59e86a24aa7151b753
     // Return the number of rows in the section.
     return [self.companyList count];
 }
@@ -85,7 +73,6 @@
     }
     
     // Configure the cell...
-<<<<<<< HEAD
     NSString *companyName = [self.companyList objectAtIndex:[indexPath row]];
     
     cell.textLabel.text = companyName;
@@ -99,12 +86,8 @@
     } else {
         [[cell imageView] setImage: [UIImage imageNamed:@"logo_HTC_48x48.jpg"]];
     }
-
-=======
-    
     cell.textLabel.text = [self.companyList objectAtIndex:[indexPath row]];
     
->>>>>>> c6d5c0ecd0ea83e7b9e57e59e86a24aa7151b753
     return cell;
 }
 
@@ -154,7 +137,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-<<<<<<< HEAD
     if (indexPath.row == 0){
         self.productViewController.title = @"Apple mobile devices";
     } else if (indexPath.row == 1){
@@ -163,13 +145,6 @@
         self.productViewController.title = @"Microsoft mobile devices";
     } else {
         self.productViewController.title = @"HTC mobile devices";
-=======
-
-    if (indexPath.row == 0){
-        self.productViewController.title = @"Apple mobile devices";
-    } else {
-        self.productViewController.title = @"Samsung mobile devices";
->>>>>>> c6d5c0ecd0ea83e7b9e57e59e86a24aa7151b753
     }
     
     [self.navigationController

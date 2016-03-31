@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
+
 //#import "ProductViewController.h"
 
 @interface WebViewController : UIViewController
@@ -16,6 +18,10 @@
 }
 
 @property (nonatomic, retain) NSArray *products;
+
+// Added for switch to WKWebView:
+@property(strong,nonatomic) WKWebView *wkWebView;
+
 
 //@property (nonatomic, retain) ProductViewController *productViewController;
 

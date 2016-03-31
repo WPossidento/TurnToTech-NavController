@@ -24,14 +24,11 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-<<<<<<< HEAD
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-=======
->>>>>>> c6d5c0ecd0ea83e7b9e57e59e86a24aa7151b753
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
