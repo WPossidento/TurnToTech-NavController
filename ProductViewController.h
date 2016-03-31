@@ -13,7 +13,12 @@
 
 @interface ProductViewController : UITableViewController
 
-@property (nonatomic, retain) NSArray *products;
+@property (nonatomic, retain) NSMutableArray *products;
+
+@property (nonatomic, retain) NSMutableArray *appleProducts;
+@property (nonatomic, retain) NSMutableArray *samsungProducts;
+@property (nonatomic, retain) NSMutableArray *microsoftProducts;
+@property (nonatomic, retain) NSMutableArray *htcProducts;
 
 @property(nonatomic, retain) WebViewController *webViewController;
 

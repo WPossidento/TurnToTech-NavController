@@ -23,6 +23,7 @@
     return self;
 }
 
+// viewDidLoad loads once whereas viewWillAppear reloads every time a view loads.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -32,23 +33,60 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    NSArray *appleItems = @[@"iPad", @"iPod Touch",@"iPhone"];
+    NSArray *samsungItems = @[@"Galaxy S7", @"Galaxy Note", @"Galaxy Tab"];
+    NSArray *microsoftItems = @[@"Lumia 950", @"Lumia 950 XL", @"Lumia 650 Dual Sim"];
+    NSArray *htcItems = @[@"HTC One A9", @"HTC One M9", @"HTC Desire 626"];
+    
+    self.appleProducts = [[NSMutableArray alloc] initWithArray:appleItems];
+    self.samsungProducts = [[NSMutableArray alloc] initWithArray:samsungItems];
+    self.microsoftProducts = [[NSMutableArray alloc] initWithArray:microsoftItems];
+    self.htcProducts = [[NSMutableArray alloc] initWithArray:htcItems];
+    
 }
 
+// viewWillAppear reloads every time a view loads whereas viewDidLoad loads only once.
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
     
+//    NSArray *appleItems = @[@"iPad", @"iPod Touch",@"iPhone"];
+//    NSArray *samsungItems = @[@"Galaxy S7", @"Galaxy Note", @"Galaxy Tab"];
+//    NSArray *microsoftItems = @[@"Lumia 950", @"Lumia 950 XL", @"Lumia 650 Dual Sim"];
+//    NSArray *htcItems = @[@"HTC One A9", @"HTC One M9", @"HTC Desire 626"];
+//    
+//    self.appleProducts = [[NSMutableArray alloc] initWithArray:appleItems];
+//    self.samsungProducts = [[NSMutableArray alloc] initWithArray:samsungItems];
+//    self.microsoftProducts = [[NSMutableArray alloc] initWithArray:microsoftItems];
+//    self.htcProducts = [[NSMutableArray alloc] initWithArray:htcItems];
+    
     if ([self.title isEqualToString:@"Apple mobile devices"]) {
-        self.products = @[@"iPad", @"iPod Touch",@"iPhone"];
+//        self.products = @[@"iPad", @"iPod Touch",@"iPhone"];
+        self.products = _appleProducts;
     } else  if ([self.title isEqualToString:@"Samsung mobile devices"]) {
-        self.products = @[@"Galaxy S7", @"Galaxy Note", @"Galaxy Tab"];
+//        self.products = @[@"Galaxy S7", @"Galaxy Note", @"Galaxy Tab"];
+        self.products = _samsungProducts;
     } else  if ([self.title isEqualToString:@"Microsoft mobile devices"]) {
-        self.products = @[@"Lumia 950", @"Lumia 950 XL", @"Lumia 650 Dual Sim"];
+//        self.products = @[@"Lumia 950", @"Lumia 950 XL", @"Lumia 650 Dual Sim"];
+        self.products = _microsoftProducts;
     } else {
-        self.products = @[@"HTC One A9", @"HTC One M9", @"HTC Desire 626"];
+//        self.products = @[@"HTC One A9", @"HTC One M9", @"HTC Desire 626"];
+        self.products = _htcProducts;
     }
 
     [self.tableView reloadData];
+}
+
+// Add delete functionality for the products:
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self.products removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil]
+                         withRowAnimation:UITableViewRowAnimationTop];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -86,7 +124,6 @@
     cell.textLabel.text = [self.products objectAtIndex:[indexPath row]];
 
 //    return cell;
-    
     
     if ([self.title isEqualToString:@"Apple mobile devices"]) {
             [[cell imageView] setImage: [UIImage imageNamed:@"logo_Apple_48x48.jpg"]];
@@ -140,7 +177,6 @@
     } else if ([self.title isEqualToString:@"HTC mobile devices"] & (indexPath.row == 2)) {
         self.webViewController.title = @"HTC Desire 626";
     }
-    
     
     [self.navigationController
      pushViewController:self.webViewController

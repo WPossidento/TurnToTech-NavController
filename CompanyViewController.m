@@ -35,7 +35,11 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-    self.companyList = @[@"Apple mobile devices",@"Samsung mobile devices",@"Microsoft mobile devices",@"HTC mobile devices"];
+    NSArray *data = @[@"Apple mobile devices",@"Samsung mobile devices",@"Microsoft mobile devices",@"HTC mobile devices"];
+    
+    //self.companyList = @[@"Apple mobile devices",@"Samsung mobile devices",@"Microsoft mobile devices",@"HTC mobile devices"];
+    
+    self.companyList = [[NSMutableArray alloc]initWithArray:data]; // Need mutable array for deleting
 
     self.title = @"Mobile device makers";    
     
@@ -89,6 +93,17 @@
     cell.textLabel.text = [self.companyList objectAtIndex:[indexPath row]];
     
     return cell;
+}
+
+// Add delete functionality for the companies:
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self.companyList removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil]
+        withRowAnimation:UITableViewRowAnimationTop];
+    }
+    
 }
 
 /*
@@ -150,10 +165,7 @@
     [self.navigationController
         pushViewController:self.productViewController
         animated:YES];
-    
 
 }
- 
-
 
 @end
