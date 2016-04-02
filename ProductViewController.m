@@ -86,7 +86,6 @@
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil]
                          withRowAnimation:UITableViewRowAnimationTop];
     }
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -121,7 +120,9 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     // Configure the cell...
-    cell.textLabel.text = [self.products objectAtIndex:[indexPath row]];
+    NSString *productName = [self.products objectAtIndex:[indexPath row]];
+    
+    cell.textLabel.text = productName;
 
 //    return cell;
     
@@ -141,41 +142,42 @@
 //// In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSString *productName = [self.products objectAtIndex:[indexPath row]];
     
     self.webViewController =
     [[WebViewController alloc]
      initWithNibName:@"WebViewController" bundle:nil];
     
     if ([self.title isEqualToString:@"Apple mobile devices"] & (indexPath.row == 0)) {
-        self.webViewController.title = @"iPad";
+        self.webViewController.title = productName; //@"iPad";
     } else if ([self.title isEqualToString:@"Apple mobile devices"] & (indexPath.row == 1)) {
-        self.webViewController.title = @"iPod Touch";
+        self.webViewController.title = productName; //@"iPod Touch";
     } else if ([self.title isEqualToString:@"Apple mobile devices"] & (indexPath.row == 2)) {
-        self.webViewController.title = @"iPhone";
+        self.webViewController.title = productName;//@"iPhone";
     } 
     
     if ([self.title isEqualToString:@"Samsung mobile devices"] & (indexPath.row == 0)) {
-        self.webViewController.title = @"Galaxy S7";
+        self.webViewController.title = productName; //@"Galaxy S7";
     } else if ([self.title isEqualToString:@"Samsung mobile devices"] & (indexPath.row == 1)) {
-        self.webViewController.title = @"Galaxy Note";
+        self.webViewController.title = productName; //@"Galaxy Note";
     } else if ([self.title isEqualToString:@"Samsung mobile devices"] & (indexPath.row == 2)) {
-        self.webViewController.title = @"Galaxy Tab";
+        self.webViewController.title = productName; //@"Galaxy Tab";
     }
     
     if ([self.title isEqualToString:@"Microsoft mobile devices"] & (indexPath.row == 0)) {
-        self.webViewController.title = @"Lumia 950";
+        self.webViewController.title = productName; //@"Lumia 950";
     } else if ([self.title isEqualToString:@"Microsoft mobile devices"] & (indexPath.row == 1)) {
-        self.webViewController.title = @"Lumia 950 XL";
+        self.webViewController.title = productName; //@"Lumia 950 XL";
     } else if ([self.title isEqualToString:@"Microsoft mobile devices"] & (indexPath.row == 2)) {
-        self.webViewController.title = @"Lumia 650 Dual Sim";
+        self.webViewController.title = productName; //@"Lumia 650 Dual Sim";
     }
     
     if ([self.title isEqualToString:@"HTC mobile devices"] & (indexPath.row == 0)) {
-        self.webViewController.title = @"HTC One A9";
+        self.webViewController.title = productName; //@"HTC One A9";
     } else if ([self.title isEqualToString:@"HTC mobile devices"] & (indexPath.row == 1)) {
-        self.webViewController.title = @"HTC One M9";
+        self.webViewController.title = productName; //@"HTC One M9";
     } else if ([self.title isEqualToString:@"HTC mobile devices"] & (indexPath.row == 2)) {
-        self.webViewController.title = @"HTC Desire 626";
+        self.webViewController.title = productName; //@"HTC Desire 626";
     }
     
     [self.navigationController
@@ -205,6 +207,22 @@
     }   
 }
 */
+
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+    NSString *stringToMove = self.products[fromIndexPath.row]; // NOTE: fromIndexPath.row
+    [self.products removeObjectAtIndex:fromIndexPath.row]; // NOTE: fromIndexPath.row
+    [self.products insertObject:stringToMove atIndex:toIndexPath.row]; // NOTE: toIndexPath.row
+    
+}
 
 /*
 // Override to support rearranging the table view.

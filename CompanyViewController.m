@@ -95,6 +95,20 @@
     return cell;
 }
 
+// Already exists in originally commented-out code given with assignment from Aditya:
+//// Add row re-ordering functionality for the companies:
+//- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return YES; // "return NO" will turn this function off.
+//}
+//
+//- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+//{
+//    NSString *stringToMove = self.companyList[sourceIndexPath.row];
+//    [self.companyList removeObjectAtIndex:sourceIndexPath.row];
+//    [self.companyList insertObject:stringToMove atIndex:destinationIndexPath.row];
+//}
+
 // Add delete functionality for the companies:
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
 {
@@ -103,7 +117,6 @@
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil]
         withRowAnimation:UITableViewRowAnimationTop];
     }
-    
 }
 
 /*
@@ -129,38 +142,57 @@
 }
 */
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
 // Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the item to be re-orderable.
     return YES;
 }
-*/
 
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+    NSString *stringToMove = self.companyList[fromIndexPath.row]; // NOTE: fromIndexPath.row
+        [self.companyList removeObjectAtIndex:fromIndexPath.row]; // NOTE: fromIndexPath.row
+    [self.companyList insertObject:stringToMove atIndex:toIndexPath.row]; // NOTE: toIndexPath.row
+
+}
 
 #pragma mark - Table view delegate
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    if (indexPath.row == 0){
+    
+    NSString *companyName = [self.companyList objectAtIndex:[indexPath row]];
+    
+    /*
+    if ([companyName isEqualToString:@"Apple mobile devices"]) {
         self.productViewController.title = @"Apple mobile devices";
-    } else if (indexPath.row == 1){
+        
+    } else  if ([companyName isEqualToString:@"Samsung mobile devices"]) {
         self.productViewController.title = @"Samsung mobile devices";
-    } else if (indexPath.row == 2){
+    } else  if ([companyName isEqualToString:@"Microsoft mobile devices"]) {
+    } else {
+    }
+
+//    if (indexPath.row == 0){
+    if ([indexPath.row objectAtIndex:@"Apple mobile devices"]) {
+        self.productViewController.title = @"Apple mobile devices";
+    } // else if (indexPath.row == 1){
+      else if ([indexPath.row objectForKey:@"Samsung mobile device"]){
+        self.productViewController.title = @"Samsung mobile devices";
+    } // else if (indexPath.row == 2){
+      else if ([self.companyList valueForKey:@"Microsoft mobile devices"]){
         self.productViewController.title = @"Microsoft mobile devices";
     } else {
         self.productViewController.title = @"HTC mobile devices";
     }
+     */
+    
+    // Kaushik reduce the non-working mess commented-out directly above to this next line:
+    self.productViewController.title = companyName;
+    
     
     [self.navigationController
         pushViewController:self.productViewController
