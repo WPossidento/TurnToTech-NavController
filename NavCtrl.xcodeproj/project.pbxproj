@@ -30,6 +30,8 @@
 		523502891CAAE8220033FE59 /* logo_HTC_48x48.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 523502881CAAE8220033FE59 /* logo_HTC_48x48.jpg */; };
 		5235028D1CAB12B60033FE59 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5235028B1CAB12B60033FE59 /* WebViewController.m */; };
 		5235028E1CAB12B60033FE59 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5235028C1CAB12B60033FE59 /* WebViewController.xib */; };
+		5293D7331CB30EA100DD50BD /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293D7321CB30EA100DD50BD /* Company.m */; };
+		5293D7361CB3102A00DD50BD /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293D7351CB3102A00DD50BD /* Product.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +75,10 @@
 		5235028A1CAB12B60033FE59 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		5235028B1CAB12B60033FE59 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		5235028C1CAB12B60033FE59 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
+		5293D7311CB30EA100DD50BD /* Company.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Company.h; path = ../Company.h; sourceTree = "<group>"; };
+		5293D7321CB30EA100DD50BD /* Company.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Company.m; path = ../Company.m; sourceTree = "<group>"; };
+		5293D7341CB3102A00DD50BD /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Product.h; path = ../Product.h; sourceTree = "<group>"; };
+		5293D7351CB3102A00DD50BD /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Product.m; path = ../Product.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +121,8 @@
 				48A656E318163C1B00746D36 /* CompanyViewController.h */,
 				48A656E418163C1B00746D36 /* CompanyViewController.m */,
 				48A656E518163C1B00746D36 /* CompanyViewController.xib */,
+				5293D7311CB30EA100DD50BD /* Company.h */,
+				5293D7321CB30EA100DD50BD /* Company.m */,
 			);
 			name = ParentViewController;
 			sourceTree = "<group>";
@@ -124,6 +132,8 @@
 			children = (
 				48A656E818163F8700746D36 /* ProductViewController.h */,
 				48A656E918163F8700746D36 /* ProductViewController.m */,
+				5293D7341CB3102A00DD50BD /* Product.h */,
+				5293D7351CB3102A00DD50BD /* Product.m */,
 				5235028A1CAB12B60033FE59 /* WebViewController.h */,
 				5235028B1CAB12B60033FE59 /* WebViewController.m */,
 				5235028C1CAB12B60033FE59 /* WebViewController.xib */,
@@ -312,7 +322,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5293D7361CB3102A00DD50BD /* Product.m in Sources */,
 				48A656E618163C1B00746D36 /* CompanyViewController.m in Sources */,
+				5293D7331CB30EA100DD50BD /* Company.m in Sources */,
 				5235028D1CAB12B60033FE59 /* WebViewController.m in Sources */,
 				48A656C518163BF200746D36 /* NavControllerAppDelegate.m in Sources */,
 				48A656C118163BF200746D36 /* main.m in Sources */,

@@ -7,6 +7,8 @@
 //
 
 #import "ProductViewController.h"
+#import "Company.h"
+#import "Product.h"
 
 @interface ProductViewController ()
 
@@ -34,46 +36,12 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    NSArray *appleItems = @[@"iPad", @"iPod Touch",@"iPhone"];
-    NSArray *samsungItems = @[@"Galaxy S7", @"Galaxy Note", @"Galaxy Tab"];
-    NSArray *microsoftItems = @[@"Lumia 950", @"Lumia 950 XL", @"Lumia 650 Dual Sim"];
-    NSArray *htcItems = @[@"HTC One A9", @"HTC One M9", @"HTC Desire 626"];
-    
-    self.appleProducts = [[NSMutableArray alloc] initWithArray:appleItems];
-    self.samsungProducts = [[NSMutableArray alloc] initWithArray:samsungItems];
-    self.microsoftProducts = [[NSMutableArray alloc] initWithArray:microsoftItems];
-    self.htcProducts = [[NSMutableArray alloc] initWithArray:htcItems];
-    
 }
 
 // viewWillAppear reloads every time a view loads whereas viewDidLoad loads only once.
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
-    
-//    NSArray *appleItems = @[@"iPad", @"iPod Touch",@"iPhone"];
-//    NSArray *samsungItems = @[@"Galaxy S7", @"Galaxy Note", @"Galaxy Tab"];
-//    NSArray *microsoftItems = @[@"Lumia 950", @"Lumia 950 XL", @"Lumia 650 Dual Sim"];
-//    NSArray *htcItems = @[@"HTC One A9", @"HTC One M9", @"HTC Desire 626"];
-//    
-//    self.appleProducts = [[NSMutableArray alloc] initWithArray:appleItems];
-//    self.samsungProducts = [[NSMutableArray alloc] initWithArray:samsungItems];
-//    self.microsoftProducts = [[NSMutableArray alloc] initWithArray:microsoftItems];
-//    self.htcProducts = [[NSMutableArray alloc] initWithArray:htcItems];
-    
-    if ([self.title isEqualToString:@"Apple mobile devices"]) {
-//        self.products = @[@"iPad", @"iPod Touch",@"iPhone"];
-        self.products = _appleProducts;
-    } else  if ([self.title isEqualToString:@"Samsung mobile devices"]) {
-//        self.products = @[@"Galaxy S7", @"Galaxy Note", @"Galaxy Tab"];
-        self.products = _samsungProducts;
-    } else  if ([self.title isEqualToString:@"Microsoft mobile devices"]) {
-//        self.products = @[@"Lumia 950", @"Lumia 950 XL", @"Lumia 650 Dual Sim"];
-        self.products = _microsoftProducts;
-    } else {
-//        self.products = @[@"HTC One A9", @"HTC One M9", @"HTC Desire 626"];
-        self.products = _htcProducts;
-    }
 
     [self.tableView reloadData];
 }
@@ -120,11 +88,9 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     // Configure the cell...
-    NSString *productName = [self.products objectAtIndex:[indexPath row]];
+    NSString *productName = [[self.products objectAtIndex:indexPath.row ] productName];
     
     cell.textLabel.text = productName;
-
-//    return cell;
     
     if ([self.title isEqualToString:@"Apple mobile devices"]) {
             [[cell imageView] setImage: [UIImage imageNamed:@"logo_Apple_48x48.jpg"]];
@@ -142,43 +108,53 @@
 //// In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *productName = [self.products objectAtIndex:[indexPath row]];
+//    NSString *productName = [self.products objectAtIndex:[indexPath row]];
     
     self.webViewController =
     [[WebViewController alloc]
      initWithNibName:@"WebViewController" bundle:nil];
+    self.webViewController.productURL = [self.products[indexPath.row] productURL];
     
-    if ([self.title isEqualToString:@"Apple mobile devices"] & (indexPath.row == 0)) {
-        self.webViewController.title = productName; //@"iPad";
-    } else if ([self.title isEqualToString:@"Apple mobile devices"] & (indexPath.row == 1)) {
-        self.webViewController.title = productName; //@"iPod Touch";
-    } else if ([self.title isEqualToString:@"Apple mobile devices"] & (indexPath.row == 2)) {
-        self.webViewController.title = productName;//@"iPhone";
-    } 
     
-    if ([self.title isEqualToString:@"Samsung mobile devices"] & (indexPath.row == 0)) {
-        self.webViewController.title = productName; //@"Galaxy S7";
-    } else if ([self.title isEqualToString:@"Samsung mobile devices"] & (indexPath.row == 1)) {
-        self.webViewController.title = productName; //@"Galaxy Note";
-    } else if ([self.title isEqualToString:@"Samsung mobile devices"] & (indexPath.row == 2)) {
-        self.webViewController.title = productName; //@"Galaxy Tab";
-    }
+//    if ([self.title isEqualToString:@"Apple mobile devices"] & (indexPath.row == 0)) {
+//        self.webViewController.title = productName; //@"iPad";
+//    } else if ([self.title isEqualToString:@"Apple mobile devices"] & (indexPath.row == 1)) {
+//        self.webViewController.title = productName; //@"iPod Touch";
+//    } else if ([self.title isEqualToString:@"Apple mobile devices"] & (indexPath.row == 2)) {
+//        self.webViewController.title = productName;//@"iPhone";
+//    } 
+//    
+//    if ([self.title isEqualToString:@"Samsung mobile devices"] & (indexPath.row == 0)) {
+//        self.webViewController.title = productName; //@"Galaxy S7";
+//    } else if ([self.title isEqualToString:@"Samsung mobile devices"] & (indexPath.row == 1)) {
+//        self.webViewController.title = productName; //@"Galaxy Note";
+//    } else if ([self.title isEqualToString:@"Samsung mobile devices"] & (indexPath.row == 2)) {
+//        self.webViewController.title = productName; //@"Galaxy Tab";
+//    }
+//    
+//    if ([self.title isEqualToString:@"Microsoft mobile devices"] & (indexPath.row == 0)) {
+//        self.webViewController.title = productName; //@"Lumia 950";
+//    } else if ([self.title isEqualToString:@"Microsoft mobile devices"] & (indexPath.row == 1)) {
+//        self.webViewController.title = productName; //@"Lumia 950 XL";
+//    } else if ([self.title isEqualToString:@"Microsoft mobile devices"] & (indexPath.row == 2)) {
+//        self.webViewController.title = productName; //@"Lumia 650 Dual Sim";
+//    }
+//    
+//    if ([self.title isEqualToString:@"HTC mobile devices"] & (indexPath.row == 0)) {
+//        self.webViewController.title = productName; //@"HTC One A9";
+//    } else if ([self.title isEqualToString:@"HTC mobile devices"] & (indexPath.row == 1)) {
+//        self.webViewController.title = productName; //@"HTC One M9";
+//    } else if ([self.title isEqualToString:@"HTC mobile devices"] & (indexPath.row == 2)) {
+//        self.webViewController.title = productName; //@"HTC Desire 626";
+//    }
     
-    if ([self.title isEqualToString:@"Microsoft mobile devices"] & (indexPath.row == 0)) {
-        self.webViewController.title = productName; //@"Lumia 950";
-    } else if ([self.title isEqualToString:@"Microsoft mobile devices"] & (indexPath.row == 1)) {
-        self.webViewController.title = productName; //@"Lumia 950 XL";
-    } else if ([self.title isEqualToString:@"Microsoft mobile devices"] & (indexPath.row == 2)) {
-        self.webViewController.title = productName; //@"Lumia 650 Dual Sim";
-    }
     
-    if ([self.title isEqualToString:@"HTC mobile devices"] & (indexPath.row == 0)) {
-        self.webViewController.title = productName; //@"HTC One A9";
-    } else if ([self.title isEqualToString:@"HTC mobile devices"] & (indexPath.row == 1)) {
-        self.webViewController.title = productName; //@"HTC One M9";
-    } else if ([self.title isEqualToString:@"HTC mobile devices"] & (indexPath.row == 2)) {
-        self.webViewController.title = productName; //@"HTC Desire 626";
-    }
+//    self.productViewController.title = company.companyTitle;
+//    self.productViewController.products = company.products;
+
+//    self.webViewController.title = company.companyTitle;
+//    self.webViewController.products = company.products;
+
     
     [self.navigationController
      pushViewController:self.webViewController

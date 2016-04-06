@@ -11,9 +11,12 @@
 
 @class ProductViewController;
 
-@interface CompanyViewController : UITableViewController
+@interface CompanyViewController : UITableViewController{
+    NSMutableArray *companiesGlobal;
+}
 
-@property (nonatomic, retain) NSMutableArray *companyList;
+//@property (nonatomic, retain) NSMutableArray *companyList;
+@property (nonatomic, retain) NSMutableArray *companies;
 
 @property (nonatomic, retain) IBOutlet  ProductViewController * productViewController;
 

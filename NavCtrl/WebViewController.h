@@ -24,6 +24,6 @@
 
 
 //@property (nonatomic, retain) ProductViewController *productViewController;
-
+@property (nonatomic, retain) NSString *productURL;
 
 @end

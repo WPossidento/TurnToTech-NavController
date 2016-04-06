@@ -8,6 +8,8 @@
 
 #import "CompanyViewController.h"
 #import "ProductViewController.h"
+#import "Company.h"
+#import "Product.h"
 
 @interface CompanyViewController ()
 
@@ -35,14 +37,53 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-    NSArray *data = @[@"Apple mobile devices",@"Samsung mobile devices",@"Microsoft mobile devices",@"HTC mobile devices"];
+//    NSArray *data = @[@"Apple mobile devices",@"Samsung mobile devices",@"Microsoft mobile devices",@"HTC mobile devices"];
     
     //self.companyList = @[@"Apple mobile devices",@"Samsung mobile devices",@"Microsoft mobile devices",@"HTC mobile devices"];
     
-    self.companyList = [[NSMutableArray alloc]initWithArray:data]; // Need mutable array for deleting
-
-    self.title = @"Mobile device makers";    
+//    self.companyList = [[NSMutableArray alloc]initWithArray:data]; // Need mutable array for deleting
     
+    // Apple products
+    NSMutableArray *appleProductsArray = [[NSMutableArray alloc] init];
+    [appleProductsArray addObject:[[Product alloc]initWithCompanyName:@"Apple" withProductName:@"iPad" withProductURL:@"http://www.apple.com/ipad-pro/"]];
+    [appleProductsArray addObject:[[Product alloc]initWithCompanyName:@"Apple" withProductName:@"iPod Touch" withProductURL:@"http://www.apple.com/ipod/compare-ipod-models/"]];
+    [appleProductsArray addObject:[[Product alloc]initWithCompanyName:@"Apple" withProductName:@"iPhone" withProductURL:@"http://www.apple.com/iphone/"]];
+    
+    // Samsung products
+    NSMutableArray *samsungProductsArray = [[NSMutableArray alloc] init];
+    [samsungProductsArray addObject:[[Product alloc]initWithCompanyName:@"Samsung" withProductName:@"Galaxy S7" withProductURL:@"http://www.samsung.com/us/mobile/cell-phones/SM-G935AZDAATT"]];
+    [samsungProductsArray addObject:[[Product alloc]initWithCompanyName:@"Samsung" withProductName:@"Galaxy Note" withProductURL:@"http://www.samsung.com/us/mobile/cell-phones/SM-N920AZDEATT"]];
+    [samsungProductsArray addObject:[[Product alloc]initWithCompanyName:@"Samsung" withProductName:@"Galaxy Tab" withProductURL:@"http://www.samsung.com/us/mobile/galaxy-tab/SM-T230NZWAXAR"]];
+    
+    // Microsoft products
+    NSMutableArray *microsoftProductsArray = [[NSMutableArray alloc] init];
+    [microsoftProductsArray addObject:[[Product alloc]initWithCompanyName:@"Microsoft" withProductName:@"Lumia 950" withProductURL:@"http://www.microsoftstore.com/store/msusa/en_US/pdp/ATT--Microsoft-Lumia-950/productID.330607700"]];
+    [microsoftProductsArray addObject:[[Product alloc]initWithCompanyName:@"Microsoft" withProductName:@"Lumia 950 XL" withProductURL:@"http://www.microsoftstore.com/store/msusa/en_US/pdp/Microsoft-Lumia-950-XL--Unlocked/productID.326602300"]];
+    [microsoftProductsArray addObject:[[Product alloc]initWithCompanyName:@"Microsoft" withProductName:@"Lumia 650 Dual Sim" withProductURL:@"http://www.microsoftstore.com/store/msusa/en_US/pdp/productID.334960800?icid=US_Lumia__lumia650_031116"]];
+    
+    // HTC products
+    NSMutableArray *htcProductsArray = [[NSMutableArray alloc] init];
+    [htcProductsArray addObject:[[Product alloc]initWithCompanyName:@"HTC" withProductName:@"HTC One A9" withProductURL:@"https://www.htc.com/us/smartphones/htc-one-a9/"]];
+    [htcProductsArray addObject:[[Product alloc]initWithCompanyName:@"HTC" withProductName:@"HTC One M9" withProductURL:@"https://www.htc.com/us/smartphones/htc-one-m9/"]];
+    [htcProductsArray addObject:[[Product alloc]initWithCompanyName:@"HTC" withProductName:@"HTC Desire 626" withProductURL:@"https://www.htc.com/us/smartphones/htc-desire-626/"]];
+    
+    
+    
+    NSMutableArray *companiesLocal = [[NSMutableArray alloc] init];
+    
+    
+    [companiesLocal addObject:[[Company alloc ]initWithCompanyName:@"Apple" withCompanyTitle:@"Apple mobile devices" withCompanyLogoName:@"logo_Apple_48x48.jpg" withProducts:appleProductsArray]];
+    
+    [companiesLocal addObject:[[Company alloc]initWithCompanyName:@"Samsung" withCompanyTitle:@"Samsung mobile devices" withCompanyLogoName:@"logo_Samsung_48x48.jpg" withProducts:samsungProductsArray]];
+    
+    [companiesLocal addObject:[[Company alloc] initWithCompanyName:@"Microsoft" withCompanyTitle:@"Microsoft mobile devices" withCompanyLogoName:@"logo_Microsoft_48x48.jpg" withProducts:microsoftProductsArray]];
+    
+    [companiesLocal addObject:[[Company alloc] initWithCompanyName:@"HTC" withCompanyTitle:@"HTC mobile devices" withCompanyLogoName:@"logo_HTC_48x48.jpg" withProducts:htcProductsArray]];
+    
+    self.companies = companiesLocal;
+    
+    self.title = @"Mobile device makers";
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,7 +96,6 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-
 // #warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
@@ -65,7 +105,8 @@
 {
 // #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return [self.companyList count];
+//    return [self.companyList count];
+        return [self.companies count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -77,20 +118,22 @@
     }
     
     // Configure the cell...
-    NSString *companyName = [self.companyList objectAtIndex:[indexPath row]];
+//    NSString *companyName = [[self.companyList objectAtIndex:[indexPath row]] companyName];
+    NSString *companyName = [[self.companies objectAtIndex:[indexPath row]] companyName];
     
     cell.textLabel.text = companyName;
     
-    if ([companyName isEqualToString:@"Apple mobile devices"]) {
+    if ([companyName isEqualToString:@"Apple"]) {
         [[cell imageView] setImage: [UIImage imageNamed:@"logo_Apple_48x48.jpg"]];
-    } else  if ([companyName isEqualToString:@"Samsung mobile devices"]) {
+    } else  if ([companyName isEqualToString:@"Samsung"]) {
         [[cell imageView] setImage: [UIImage imageNamed:@"logo_Samsung_48x48.jpg"]];
-    } else  if ([companyName isEqualToString:@"Microsoft mobile devices"]) {
+    } else  if ([companyName isEqualToString:@"Microsoft"]) {
         [[cell imageView] setImage: [UIImage imageNamed:@"logo_Microsoft_48x48.jpg"]];
     } else {
         [[cell imageView] setImage: [UIImage imageNamed:@"logo_HTC_48x48.jpg"]];
     }
-    cell.textLabel.text = [self.companyList objectAtIndex:[indexPath row]];
+//    cell.textLabel.text = [self.companyList objectAtIndex:[indexPath row]];
+//    cell.textLabel.text = [[self.companies objectAtIndex:[indexPath row]] companyName:];
     
     return cell;
 }
@@ -113,7 +156,8 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.companyList removeObjectAtIndex:indexPath.row];
+//        [self.companyList removeObjectAtIndex:indexPath.row];
+        [self.companies removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil]
         withRowAnimation:UITableViewRowAnimationTop];
     }
@@ -152,9 +196,13 @@
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-    NSString *stringToMove = self.companyList[fromIndexPath.row]; // NOTE: fromIndexPath.row
-        [self.companyList removeObjectAtIndex:fromIndexPath.row]; // NOTE: fromIndexPath.row
-    [self.companyList insertObject:stringToMove atIndex:toIndexPath.row]; // NOTE: toIndexPath.row
+//    NSString *stringToMove = self.companyList[fromIndexPath.row]; // NOTE: fromIndexPath.row
+//        [self.companyList removeObjectAtIndex:fromIndexPath.row]; // NOTE: fromIndexPath.row
+//    [self.companyList insertObject:stringToMove atIndex:toIndexPath.row]; // NOTE: toIndexPath.row
+    
+    NSString *stringToMove = self.companies[fromIndexPath.row]; // NOTE: fromIndexPath.row
+    [self.companies removeObjectAtIndex:fromIndexPath.row]; // NOTE: fromIndexPath.row
+    [self.companies insertObject:stringToMove atIndex:toIndexPath.row]; // NOTE: toIndexPath.row
 
 }
 
@@ -164,35 +212,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    NSString *companyName = [self.companyList objectAtIndex:[indexPath row]];
+//    NSString *companyName = [self.companyList objectAtIndex:[indexPath row]];
+    Company *company = [self.companies objectAtIndex:[indexPath row]];
     
-    /*
-    if ([companyName isEqualToString:@"Apple mobile devices"]) {
-        self.productViewController.title = @"Apple mobile devices";
-        
-    } else  if ([companyName isEqualToString:@"Samsung mobile devices"]) {
-        self.productViewController.title = @"Samsung mobile devices";
-    } else  if ([companyName isEqualToString:@"Microsoft mobile devices"]) {
-    } else {
-    }
+    self.productViewController.title = company.companyTitle;
+    self.productViewController.products = company.products;
 
-//    if (indexPath.row == 0){
-    if ([indexPath.row objectAtIndex:@"Apple mobile devices"]) {
-        self.productViewController.title = @"Apple mobile devices";
-    } // else if (indexPath.row == 1){
-      else if ([indexPath.row objectForKey:@"Samsung mobile device"]){
-        self.productViewController.title = @"Samsung mobile devices";
-    } // else if (indexPath.row == 2){
-      else if ([self.companyList valueForKey:@"Microsoft mobile devices"]){
-        self.productViewController.title = @"Microsoft mobile devices";
-    } else {
-        self.productViewController.title = @"HTC mobile devices";
-    }
-     */
-    
-    // Kaushik reduce the non-working mess commented-out directly above to this next line:
-    self.productViewController.title = companyName;
-    
     
     [self.navigationController
         pushViewController:self.productViewController
