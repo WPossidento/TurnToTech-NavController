@@ -22,7 +22,7 @@
     
     NSURL *myURL = [NSURL URLWithString:_productURL]; // Converts string (_productURL) to URL (*myURL).
 
-    NSURLRequest *myRequest = [NSURLRequest requestWithURL:myURL];
+    NSURLRequest *myRequest = [NSURLRequest requestWithURL:myURL]; // NSURLRequest objects represent a URL load request in a manner independent of protocol and URL scheme. NSURLRequest encapsulates two basic data elements of a load request: the URL to load, and the policy to use when consulting the URL content cache made available by the implementation.
     
 // This is for the old UIWebView:
 //    [myWebView loadRequest:myRequest];

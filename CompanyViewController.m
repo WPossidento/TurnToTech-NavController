@@ -10,6 +10,7 @@
 #import "ProductViewController.h"
 #import "Company.h"
 #import "Product.h"
+#import "DataAccessObject.h"
 
 @interface CompanyViewController ()
 
@@ -36,12 +37,8 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-
-//    NSArray *data = @[@"Apple mobile devices",@"Samsung mobile devices",@"Microsoft mobile devices",@"HTC mobile devices"];
     
-    //self.companyList = @[@"Apple mobile devices",@"Samsung mobile devices",@"Microsoft mobile devices",@"HTC mobile devices"];
-    
-//    self.companyList = [[NSMutableArray alloc]initWithArray:data]; // Need mutable array for deleting
+    /* I could delete this commented-out section but I'll keep it to show how much code was transferred to the DataAccessObject class.
     
     // Apple products
     NSMutableArray *appleProductsArray = [[NSMutableArray alloc] init];
@@ -71,7 +68,6 @@
     
     NSMutableArray *companiesLocal = [[NSMutableArray alloc] init];
     
-    
     [companiesLocal addObject:[[Company alloc ]initWithCompanyName:@"Apple" withCompanyTitle:@"Apple mobile devices" withCompanyLogoName:@"logo_Apple_48x48.jpg" withProducts:appleProductsArray]];
     
     [companiesLocal addObject:[[Company alloc]initWithCompanyName:@"Samsung" withCompanyTitle:@"Samsung mobile devices" withCompanyLogoName:@"logo_Samsung_48x48.jpg" withProducts:samsungProductsArray]];
@@ -81,6 +77,20 @@
     [companiesLocal addObject:[[Company alloc] initWithCompanyName:@"HTC" withCompanyTitle:@"HTC mobile devices" withCompanyLogoName:@"logo_HTC_48x48.jpg" withProducts:htcProductsArray]];
     
     self.companies = companiesLocal;
+     
+     */
+    
+    /*
+********************************************************
+     */
+    
+//  What is Data Access Object?
+    
+//  In computer software, a data access object (DAO) is an object that provides an abstract interface to some type of database or other persistence mechanism. By mapping application calls to the persistence layer, the DAO provide some specific data operations without exposing details of the database.
+    
+    DataAccessObject *dao = [[DataAccessObject alloc]init]; // Create a dataaccess object variable.
+    [dao createCompaniesAndTheirProducts]; // Call the createCompaniesAndTheirProducts method and assign the results to dao - the new variable.
+    self.companies = dao.companies; // Assign the companies in dao to companies on self - the company view controller.
     
     self.title = @"Mobile device makers";
 
@@ -152,7 +162,7 @@
 //    [self.companyList insertObject:stringToMove atIndex:destinationIndexPath.row];
 //}
 
-// Add delete functionality for the companies:
+// Add DELETE functionality for the companies:
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -186,14 +196,14 @@
 }
 */
 
-// Override to support conditional rearranging of the table view.
+// RE-ORDERING: Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the item to be re-orderable.
     return YES;
 }
 
-// Override to support rearranging the table view.
+// RE-ORDERING: Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
 //    NSString *stringToMove = self.companyList[fromIndexPath.row]; // NOTE: fromIndexPath.row
