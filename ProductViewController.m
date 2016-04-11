@@ -34,7 +34,11 @@
      self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+//    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    // Display an Add button in the navigation bar for this controller:
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(addButtonTapped:)]; // Colon after addButtonTapped indicates that the method takes an argument.
+    self.navigationItem.rightBarButtonItems = @[self.editButtonItem, addButton];
     
 }
 
@@ -44,16 +48,6 @@
     [super viewWillAppear:animated];
 
     [self.tableView reloadData];
-}
-
-// Add delete functionality for the products:
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.products removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil]
-                         withRowAnimation:UITableViewRowAnimationTop];
-    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -98,8 +92,10 @@
             [[cell imageView] setImage: [UIImage imageNamed:@"logo_Samsung_48x48.jpg"]];
     } else  if ([self.title isEqualToString:@"Microsoft mobile devices"]) {
             [[cell imageView] setImage: [UIImage imageNamed:@"logo_Microsoft_48x48.jpg"]];
-    } else {
+    } else  if ([self.title isEqualToString:@"HTC mobile devices"]) {
             [[cell imageView] setImage: [UIImage imageNamed:@"logo_HTC_48x48.jpg"]];
+    } else { // Use generic logo for added companies:
+            [[cell imageView] setImage: [UIImage imageNamed:@"logo_default_48x48.jpg"]];
     }
     
     return cell;
@@ -116,44 +112,6 @@
     self.webViewController.productURL = [self.products[indexPath.row] productURL];
     
     
-//    if ([self.title isEqualToString:@"Apple mobile devices"] & (indexPath.row == 0)) {
-//        self.webViewController.title = productName; //@"iPad";
-//    } else if ([self.title isEqualToString:@"Apple mobile devices"] & (indexPath.row == 1)) {
-//        self.webViewController.title = productName; //@"iPod Touch";
-//    } else if ([self.title isEqualToString:@"Apple mobile devices"] & (indexPath.row == 2)) {
-//        self.webViewController.title = productName;//@"iPhone";
-//    } 
-//    
-//    if ([self.title isEqualToString:@"Samsung mobile devices"] & (indexPath.row == 0)) {
-//        self.webViewController.title = productName; //@"Galaxy S7";
-//    } else if ([self.title isEqualToString:@"Samsung mobile devices"] & (indexPath.row == 1)) {
-//        self.webViewController.title = productName; //@"Galaxy Note";
-//    } else if ([self.title isEqualToString:@"Samsung mobile devices"] & (indexPath.row == 2)) {
-//        self.webViewController.title = productName; //@"Galaxy Tab";
-//    }
-//    
-//    if ([self.title isEqualToString:@"Microsoft mobile devices"] & (indexPath.row == 0)) {
-//        self.webViewController.title = productName; //@"Lumia 950";
-//    } else if ([self.title isEqualToString:@"Microsoft mobile devices"] & (indexPath.row == 1)) {
-//        self.webViewController.title = productName; //@"Lumia 950 XL";
-//    } else if ([self.title isEqualToString:@"Microsoft mobile devices"] & (indexPath.row == 2)) {
-//        self.webViewController.title = productName; //@"Lumia 650 Dual Sim";
-//    }
-//    
-//    if ([self.title isEqualToString:@"HTC mobile devices"] & (indexPath.row == 0)) {
-//        self.webViewController.title = productName; //@"HTC One A9";
-//    } else if ([self.title isEqualToString:@"HTC mobile devices"] & (indexPath.row == 1)) {
-//        self.webViewController.title = productName; //@"HTC One M9";
-//    } else if ([self.title isEqualToString:@"HTC mobile devices"] & (indexPath.row == 2)) {
-//        self.webViewController.title = productName; //@"HTC Desire 626";
-//    }
-    
-    
-//    self.productViewController.title = company.companyTitle;
-//    self.productViewController.products = company.products;
-
-//    self.webViewController.title = company.companyTitle;
-//    self.webViewController.products = company.products;
 
     
     [self.navigationController
@@ -199,6 +157,71 @@
     [self.products insertObject:stringToMove atIndex:toIndexPath.row]; // NOTE: toIndexPath.row
     
 }
+
+// Add delete functionality for the products:
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self.products removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil]
+                         withRowAnimation:UITableViewRowAnimationTop];
+    }
+}
+
+- (IBAction)addButtonTapped:(id)sender {
+    
+    UIAlertController *popUp = [UIAlertController alertControllerWithTitle:@"Add a product" message:@"Please enter product information to be added." preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Submit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { // "^" indicates a block
+        Product* newProduct = [[Product alloc] init];
+        
+        if (![popUp.textFields[0].text isEqualToString: @""]) {
+            
+            newProduct.productName = popUp.textFields[0].text;
+            newProduct.productURL = popUp.textFields[1].text;
+            
+            [self.products addObject:newProduct]; // Add new company to array of companies.
+            
+            NSLog(@"The new product is %@\n\n", newProduct.productName);
+            
+            NSLog(@"Submitted\n\n");
+            
+            dispatch_async(dispatch_get_main_queue(), ^{ // Must wrap reload to get it to affect main queue because it otherwise would be in a block on its own thread
+                // do work here
+                [self.tableView reloadData];
+            });
+            
+        }
+    }];
+    
+    [popUp addAction:defaultAction];
+    
+    [popUp addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"Input data...";
+    }];
+    
+    
+    [popUp addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"Product URL...";
+    }];
+    
+    // Add cancel button:
+    UIAlertAction* cancel = [UIAlertAction
+                             actionWithTitle:@"Cancel"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [popUp dismissViewControllerAnimated:YES completion:nil];
+                                 
+                             }];
+    
+    [popUp addAction:cancel];
+    // End add cancel button.
+    
+    [self presentViewController:popUp animated:YES completion:nil];
+    
+}
+
 
 /*
 // Override to support rearranging the table view.

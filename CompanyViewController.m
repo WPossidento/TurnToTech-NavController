@@ -38,7 +38,12 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    /* I could delete this commented-out section but I'll keep it to show how much code was transferred to the DataAccessObject class.
+    // Display an Add button in the navigation bar for this controller:
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(addButtonTapped:)]; // Colon after addButtonTapped indicates that the method takes an argument.
+    self.navigationItem.leftBarButtonItem = addButton;
+    
+    
+    /* I could delete this commented-out section but I'll keep it to show how much code was transferred to the DataAccessObject class:
     
     // Apple products
     NSMutableArray *appleProductsArray = [[NSMutableArray alloc] init];
@@ -113,9 +118,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-// #warning Incomplete method implementation.
     // Return the number of rows in the section.
-//    return [self.companyList count];
         return [self.companies count];
 }
 
@@ -128,21 +131,26 @@
     }
     
     // Configure the cell...
-//    NSString *companyName = [[self.companyList objectAtIndex:[indexPath row]] companyName];
     NSString *companyName = [[self.companies objectAtIndex:[indexPath row]] companyName];
     
     cell.textLabel.text = companyName;
     
-    if ([companyName isEqualToString:@"Apple"]) {
-        [[cell imageView] setImage: [UIImage imageNamed:@"logo_Apple_48x48.jpg"]];
-    } else  if ([companyName isEqualToString:@"Samsung"]) {
-        [[cell imageView] setImage: [UIImage imageNamed:@"logo_Samsung_48x48.jpg"]];
-    } else  if ([companyName isEqualToString:@"Microsoft"]) {
-        [[cell imageView] setImage: [UIImage imageNamed:@"logo_Microsoft_48x48.jpg"]];
-    } else {
-        [[cell imageView] setImage: [UIImage imageNamed:@"logo_HTC_48x48.jpg"]];
+    if (!companyName) {
     }
-//    cell.textLabel.text = [self.companyList objectAtIndex:[indexPath row]];
+    else {
+        if ([companyName isEqualToString:@"Apple"]) {
+            [[cell imageView] setImage: [UIImage imageNamed:@"logo_Apple_48x48.jpg"]];
+        } else  if ([companyName isEqualToString:@"Samsung"]) {
+            [[cell imageView] setImage: [UIImage imageNamed:@"logo_Samsung_48x48.jpg"]];
+        } else  if ([companyName isEqualToString:@"Microsoft"]) {
+            [[cell imageView] setImage: [UIImage imageNamed:@"logo_Microsoft_48x48.jpg"]];
+        } else if ([companyName isEqualToString:@"HTC"]) {
+            [[cell imageView] setImage: [UIImage imageNamed:@"logo_HTC_48x48.jpg"]];
+        } else { // Use generic logo for added companies:
+            [[cell imageView] setImage: [UIImage imageNamed:@"logo_default_48x48.jpg"]];
+        }
+    }
+
 //    cell.textLabel.text = [[self.companies objectAtIndex:[indexPath row]] companyName:];
     
     return cell;
@@ -166,11 +174,59 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-//        [self.companyList removeObjectAtIndex:indexPath.row];
         [self.companies removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil]
         withRowAnimation:UITableViewRowAnimationTop];
     }
+}
+
+
+- (IBAction)addButtonTapped:(id)sender {
+    
+    UIAlertController *popUp = [UIAlertController alertControllerWithTitle:@"Add a company" message:@"Please enter a company to add." preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Submit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { // "^" indicates a block
+        Company* newCompany = [[Company alloc] init];
+        
+        if (![popUp.textFields[0].text isEqualToString: @""]) {
+
+            newCompany.companyName = popUp.textFields[0].text;
+        
+            [self.companies addObject:newCompany]; // Add new company to array of companies.
+        
+            NSLog(@"The new company is %@\n\n", newCompany.companyName);
+        
+            NSLog(@"Submitted\n\n");
+            
+            dispatch_async(dispatch_get_main_queue(), ^{ // Must wrap reload to get it to affect main queue because it otherwise would be in a block on its own thread
+                // do work here
+                [self.tableView reloadData];
+        });
+        
+        }
+    }];
+    
+    [popUp addAction:defaultAction];
+    
+    [popUp addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"Input data...";
+    }];
+    
+    // Add cancel button:
+    UIAlertAction* cancel = [UIAlertAction
+                             actionWithTitle:@"Cancel"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [popUp dismissViewControllerAnimated:YES completion:nil];
+                                 
+                             }];
+    
+    [popUp addAction:cancel];
+    // End add cancel button.
+    
+    [self presentViewController:popUp animated:YES completion:nil];
+
 }
 
 /*
