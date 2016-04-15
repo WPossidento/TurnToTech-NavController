@@ -44,6 +44,8 @@
 
 @property (nonatomic, retain) NSMutableArray *companies;
 
++(DataAccessObject*) sharedObject;
+
 -(void)createCompaniesAndTheirProducts; // This method name is self-explanatory.
 
 @end

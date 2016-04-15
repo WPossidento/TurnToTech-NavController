@@ -82,7 +82,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     // Configure the cell...
-    NSString *productName = [[self.products objectAtIndex:indexPath.row ] productName];
+    NSString *productName = [[self.products objectAtIndex:indexPath.row] productName];
     
     cell.textLabel.text = productName;
     
@@ -110,9 +110,6 @@
     [[WebViewController alloc]
      initWithNibName:@"WebViewController" bundle:nil];
     self.webViewController.productURL = [self.products[indexPath.row] productURL];
-    
-    
-
     
     [self.navigationController
      pushViewController:self.webViewController
@@ -175,14 +172,15 @@
     UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Submit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { // "^" indicates a block
         Product* newProduct = [[Product alloc] init];
         
-        if (![popUp.textFields[0].text isEqualToString: @""]) {
+        if (![popUp.textFields[0].text isEqualToString:@""] && ![popUp.textFields[1].text isEqualToString:@""]) {
             
             newProduct.productName = popUp.textFields[0].text;
             newProduct.productURL = popUp.textFields[1].text;
             
-            [self.products addObject:newProduct]; // Add new company to array of companies.
+            [self.products addObject:newProduct]; // Add new product to array of products.
             
             NSLog(@"The new product is %@\n\n", newProduct.productName);
+            NSLog(@"The new URL is %@\n\n", newProduct.productURL);
             
             NSLog(@"Submitted\n\n");
             
@@ -197,7 +195,7 @@
     [popUp addAction:defaultAction];
     
     [popUp addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.placeholder = @"Input data...";
+        textField.placeholder = @"Product name...";
     }];
     
     

@@ -15,9 +15,6 @@
 
 @property (nonatomic, retain) NSMutableArray *products;
 
-@property (nonatomic, retain) NSMutableArray *companies;
-
-
 
 @property(nonatomic, retain) WebViewController *webViewController;
 

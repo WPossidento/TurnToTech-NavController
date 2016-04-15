@@ -32,6 +32,8 @@
 		5235028D1CAB12B60033FE59 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5235028B1CAB12B60033FE59 /* WebViewController.m */; };
 		5235028E1CAB12B60033FE59 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5235028C1CAB12B60033FE59 /* WebViewController.xib */; };
 		526DAD1B1CB86A480056C02B /* logo_default_48x48.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 526DAD1A1CB86A480056C02B /* logo_default_48x48.jpg */; };
+		527564A41CBEDEC7006C8A64 /* AddOrEditCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 527564A21CBEDEC7006C8A64 /* AddOrEditCompanyViewController.m */; };
+		527564A51CBEDEC7006C8A64 /* AddOrEditCompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 527564A31CBEDEC7006C8A64 /* AddOrEditCompanyViewController.xib */; };
 		5293D7331CB30EA100DD50BD /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293D7321CB30EA100DD50BD /* Company.m */; };
 		5293D7361CB3102A00DD50BD /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293D7351CB3102A00DD50BD /* Product.m */; };
 /* End PBXBuildFile section */
@@ -80,6 +82,9 @@
 		5235028B1CAB12B60033FE59 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		5235028C1CAB12B60033FE59 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		526DAD1A1CB86A480056C02B /* logo_default_48x48.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo_default_48x48.jpg; sourceTree = "<group>"; };
+		527564A11CBEDEC7006C8A64 /* AddOrEditCompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOrEditCompanyViewController.h; sourceTree = "<group>"; };
+		527564A21CBEDEC7006C8A64 /* AddOrEditCompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOrEditCompanyViewController.m; sourceTree = "<group>"; };
+		527564A31CBEDEC7006C8A64 /* AddOrEditCompanyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddOrEditCompanyViewController.xib; sourceTree = "<group>"; };
 		5293D7311CB30EA100DD50BD /* Company.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Company.h; path = ../Company.h; sourceTree = "<group>"; };
 		5293D7321CB30EA100DD50BD /* Company.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Company.m; path = ../Company.m; sourceTree = "<group>"; };
 		5293D7341CB3102A00DD50BD /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Product.h; path = ../Product.h; sourceTree = "<group>"; };
@@ -125,9 +130,12 @@
 			children = (
 				48A656E318163C1B00746D36 /* CompanyViewController.h */,
 				48A656E418163C1B00746D36 /* CompanyViewController.m */,
+				48A656E518163C1B00746D36 /* CompanyViewController.xib */,
+				527564A11CBEDEC7006C8A64 /* AddOrEditCompanyViewController.h */,
+				527564A21CBEDEC7006C8A64 /* AddOrEditCompanyViewController.m */,
+				527564A31CBEDEC7006C8A64 /* AddOrEditCompanyViewController.xib */,
 				521504311CB5CE6E0083F81A /* DataAccessObject.h */,
 				521504321CB5CE6E0083F81A /* DataAccessObject.m */,
-				48A656E518163C1B00746D36 /* CompanyViewController.xib */,
 				483796CD1BCBF7EB0062D5AB /* ProductViewController */,
 				5293D7311CB30EA100DD50BD /* Company.h */,
 				5293D7321CB30EA100DD50BD /* Company.m */,
@@ -307,6 +315,7 @@
 				48A656BF18163BF200746D36 /* InfoPlist.strings in Resources */,
 				5235028E1CAB12B60033FE59 /* WebViewController.xib in Resources */,
 				523502871CAAE8050033FE59 /* logo_Microsoft_48x48.jpg in Resources */,
+				527564A51CBEDEC7006C8A64 /* AddOrEditCompanyViewController.xib in Resources */,
 				523502831CAAE7DB0033FE59 /* logo_Apple_48x48.jpg in Resources */,
 				523502851CAAE7EA0033FE59 /* logo_Samsung_48x48.jpg in Resources */,
 				48A656C718163BF200746D36 /* Images.xcassets in Resources */,
@@ -335,6 +344,7 @@
 				5293D7361CB3102A00DD50BD /* Product.m in Sources */,
 				48A656E618163C1B00746D36 /* CompanyViewController.m in Sources */,
 				5293D7331CB30EA100DD50BD /* Company.m in Sources */,
+				527564A41CBEDEC7006C8A64 /* AddOrEditCompanyViewController.m in Sources */,
 				5235028D1CAB12B60033FE59 /* WebViewController.m in Sources */,
 				48A656C518163BF200746D36 /* NavControllerAppDelegate.m in Sources */,
 				48A656C118163BF200746D36 /* main.m in Sources */,

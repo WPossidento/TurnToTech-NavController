@@ -39,12 +39,24 @@
 
 //  There are some cases in which it makes sense to have exactly one instance of a class. For example, there’s no need to have multiple Logger instances out there, unless you want to write to several log files at once. Or, take a global configuration handler class: it’s easier to implement a thread-safe access to a single shared resource, such as a configuration file, than to have many class modifying the configuration file possibly at the same time.
 
+//  http://www.cocoawithlove.com/2008/11/singletons-appdelegates-and-top-level.html: A singleton is an object that can be allocated only once (and can't be deleted) — making it a single, global instance. While singletons are stored in a true global variable, they are never accessed that way in Objective-C (a class method is used to access them), providing a least some abstraction around the implementation.
+
 
 #import "DataAccessObject.h"
 #import "Company.h"
 #import "Product.h"
 
 @implementation DataAccessObject
+
++(DataAccessObject*) sharedObject {
+    
+    static DataAccessObject  *sharedDataAccessObject = nil;
+    if(!sharedDataAccessObject) {
+        sharedDataAccessObject = [[DataAccessObject alloc] init];
+    }
+    return sharedDataAccessObject;
+}
+
 
 // This method name is self-explanatory:
 -(void)createCompaniesAndTheirProducts{
