@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CompanyViewController.h"
+//#import "CompanyViewController.h"
+#import "Company.h"
 
 @interface AddOrEditCompanyViewController : UIViewController
 
@@ -15,13 +16,17 @@
 @property (retain, nonatomic) IBOutlet UITextField *companyTitleTextField;
 @property (retain, nonatomic) IBOutlet UITextField *companyLogoNameTextField;
 
+@property (nonatomic) BOOL isEditing;
+
+
 - (IBAction)SubmitButton:(id)sender;
 - (IBAction)CancelButton:(id)sender;
 
 
 
-@property (nonatomic, retain) IBOutlet CompanyViewController *companyViewController;
-@property (nonatomic, retain) NSMutableArray *companies;
+//@property (nonatomic, retain) IBOutlet CompanyViewController *companyViewController;
+@property (nonatomic, retain) Company *company;
+@property (nonatomic, retain) NSString *companyLogoName;
 
 
 

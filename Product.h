@@ -13,7 +13,8 @@
 @property (nonatomic, retain) NSString *companyName;
 @property (nonatomic, retain) NSString *productName;
 @property (nonatomic, retain) NSString *productURL;
+@property (nonatomic, retain) NSString *productImage;
 
--(instancetype)initWithCompanyName:(NSString*)companyName withProductName:(NSString*)productName withProductURL:(NSString*)productURL;
+-(instancetype)initWithCompanyName:(NSString*)companyName withProductName:(NSString*)productName withProductURL:(NSString*)productURL withProductImage:(NSString*)productImage;
 
 @end

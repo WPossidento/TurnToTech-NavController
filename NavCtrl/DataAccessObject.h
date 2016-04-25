@@ -39,13 +39,26 @@
 
 
 #import <Foundation/Foundation.h>
+#import "Company.h"
 
 @interface DataAccessObject : NSObject
 
 @property (nonatomic, retain) NSMutableArray *companies;
+//@property (nonatomic, retain) NSMutableArray *appleProducts;
+//@property (nonatomic, retain) NSMutableArray *samsungProducts;
+//@property (nonatomic, retain) NSMutableArray *microsoftProducts;
+//@property (nonatomic, retain) NSMutableArray *htcProducts;
 
 +(DataAccessObject*) sharedObject;
 
 -(void)createCompaniesAndTheirProducts; // This method name is self-explanatory.
+
+// getAllCompanies, add, edit, delete
+-(NSMutableArray*)getAllCompanies;
+-(void)addCompany:(Company*)company;
+
+
+
+
 
 @end

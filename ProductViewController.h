@@ -8,14 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
+#import "Product.h"
+#import "Company.h"
 
 #import "WebViewController.h"
 
 @interface ProductViewController : UITableViewController
 
-@property (nonatomic, retain) NSMutableArray *products;
+@property(nonatomic, retain) NSMutableArray *products;
 
+@property(nonatomic, retain) Product *productName;
 
 @property(nonatomic, retain) WebViewController *webViewController;
+
+@property (nonatomic, retain) Company *company;
 
 @end

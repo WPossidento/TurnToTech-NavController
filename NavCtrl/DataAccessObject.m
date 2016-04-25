@@ -1,15 +1,13 @@
-//
+
 //  DataAccessObject.m
 //  NavCtrl
-//
+
 //  Created by Macbook Pro on 4/6/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 
 //  What is a Data Access Object?
 
 //  In computer software, a data access object (DAO) is an object that provides an abstract interface to some type of database or other persistence mechanism. By mapping application calls to the persistence layer, the DAO provide some specific data operations without exposing details of the database.
-
-
 
 //  MVC (from "model view controller") is a software design pattern common in object-oriented programming languages.
 
@@ -41,7 +39,6 @@
 
 //  http://www.cocoawithlove.com/2008/11/singletons-appdelegates-and-top-level.html: A singleton is an object that can be allocated only once (and can't be deleted) — making it a single, global instance. While singletons are stored in a true global variable, they are never accessed that way in Objective-C (a class method is used to access them), providing a least some abstraction around the implementation.
 
-
 #import "DataAccessObject.h"
 #import "Company.h"
 #import "Product.h"
@@ -63,28 +60,38 @@
     
     // Apple products
     NSMutableArray *appleProductsArray = [[NSMutableArray alloc] init];
-    [appleProductsArray addObject:[[Product alloc]initWithCompanyName:@"Apple" withProductName:@"iPad" withProductURL:@"http://www.apple.com/ipad-pro/"]];
-    [appleProductsArray addObject:[[Product alloc]initWithCompanyName:@"Apple" withProductName:@"iPod Touch" withProductURL:@"http://www.apple.com/ipod/compare-ipod-models/"]];
-    [appleProductsArray addObject:[[Product alloc]initWithCompanyName:@"Apple" withProductName:@"iPhone" withProductURL:@"http://www.apple.com/iphone/"]];
+    [appleProductsArray addObject:[[Product alloc]initWithCompanyName:@"Apple" withProductName:@"iPad" withProductURL:@"http://www.apple.com/ipad-pro/" withProductImage:@"logo_Apple_48x48.jpg"]];
+    [appleProductsArray addObject:[[Product alloc]initWithCompanyName:@"Apple" withProductName:@"iPod Touch" withProductURL:@"http://www.apple.com/ipod/compare-ipod-models/" withProductImage:@"logo_Apple_48x48.jpg"]];
+    [appleProductsArray addObject:[[Product alloc]initWithCompanyName:@"Apple" withProductName:@"iPhone" withProductURL:@"http://www.apple.com/iphone/" withProductImage:@"logo_Apple_48x48.jpg"]];
+    
+    //self.appleProducts = appleProductsArray;
+    
     
     // Samsung products
     NSMutableArray *samsungProductsArray = [[NSMutableArray alloc] init];
-    [samsungProductsArray addObject:[[Product alloc]initWithCompanyName:@"Samsung" withProductName:@"Galaxy S7" withProductURL:@"http://www.samsung.com/us/mobile/cell-phones/SM-G935AZDAATT"]];
-    [samsungProductsArray addObject:[[Product alloc]initWithCompanyName:@"Samsung" withProductName:@"Galaxy Note" withProductURL:@"http://www.samsung.com/us/mobile/cell-phones/SM-N920AZDEATT"]];
-    [samsungProductsArray addObject:[[Product alloc]initWithCompanyName:@"Samsung" withProductName:@"Galaxy Tab" withProductURL:@"http://www.samsung.com/us/mobile/galaxy-tab/SM-T230NZWAXAR"]];
+    [samsungProductsArray addObject:[[Product alloc]initWithCompanyName:@"Samsung" withProductName:@"Galaxy S7" withProductURL:@"http://www.samsung.com/us/mobile/cell-phones/SM-G935AZDAATT" withProductImage:@"logo_Samsung_48x48.jpg"]];
+    [samsungProductsArray addObject:[[Product alloc]initWithCompanyName:@"Samsung" withProductName:@"Galaxy Note" withProductURL:@"http://www.samsung.com/us/mobile/cell-phones/SM-N920AZDEATT" withProductImage:@"logo_Samsung_48x48.jpg"]];
+    [samsungProductsArray addObject:[[Product alloc]initWithCompanyName:@"Samsung" withProductName:@"Galaxy Tab" withProductURL:@"http://www.samsung.com/us/mobile/galaxy-tab/SM-T230NZWAXAR" withProductImage:@"logo_Samsung_48x48.jpg"]];
+    
+    //self.samsungProducts = samsungProductsArray;
+    
     
     // Microsoft products
     NSMutableArray *microsoftProductsArray = [[NSMutableArray alloc] init];
-    [microsoftProductsArray addObject:[[Product alloc]initWithCompanyName:@"Microsoft" withProductName:@"Lumia 950" withProductURL:@"http://www.microsoftstore.com/store/msusa/en_US/pdp/ATT--Microsoft-Lumia-950/productID.330607700"]];
-    [microsoftProductsArray addObject:[[Product alloc]initWithCompanyName:@"Microsoft" withProductName:@"Lumia 950 XL" withProductURL:@"http://www.microsoftstore.com/store/msusa/en_US/pdp/Microsoft-Lumia-950-XL--Unlocked/productID.326602300"]];
-    [microsoftProductsArray addObject:[[Product alloc]initWithCompanyName:@"Microsoft" withProductName:@"Lumia 650 Dual Sim" withProductURL:@"http://www.microsoftstore.com/store/msusa/en_US/pdp/productID.334960800?icid=US_Lumia__lumia650_031116"]];
+    [microsoftProductsArray addObject:[[Product alloc]initWithCompanyName:@"Microsoft" withProductName:@"Lumia 950" withProductURL:@"http://www.microsoftstore.com/store/msusa/en_US/pdp/ATT--Microsoft-Lumia-950/productID.330607700" withProductImage:@"logo_Microsoft_48x48.jpg"]];
+    [microsoftProductsArray addObject:[[Product alloc]initWithCompanyName:@"Microsoft" withProductName:@"Lumia 950 XL" withProductURL:@"http://www.microsoftstore.com/store/msusa/en_US/pdp/Microsoft-Lumia-950-XL--Unlocked/productID.326602300" withProductImage:@"logo_Microsoft_48x48.jpg"]];
+    [microsoftProductsArray addObject:[[Product alloc]initWithCompanyName:@"Microsoft" withProductName:@"Lumia 650 Dual Sim" withProductURL:@"http://www.microsoftstore.com/store/msusa/en_US/pdp/productID.334960800?icid=US_Lumia__lumia650_031116" withProductImage:@"logo_Microsoft_48x48.jpg"]];
+    
+    //self.microsoftProducts = microsoftProductsArray;
+    
     
     // HTC products
     NSMutableArray *htcProductsArray = [[NSMutableArray alloc] init];
-    [htcProductsArray addObject:[[Product alloc]initWithCompanyName:@"HTC" withProductName:@"HTC One A9" withProductURL:@"https://www.htc.com/us/smartphones/htc-one-a9/"]];
-    [htcProductsArray addObject:[[Product alloc]initWithCompanyName:@"HTC" withProductName:@"HTC One M9" withProductURL:@"https://www.htc.com/us/smartphones/htc-one-m9/"]];
-    [htcProductsArray addObject:[[Product alloc]initWithCompanyName:@"HTC" withProductName:@"HTC Desire 626" withProductURL:@"https://www.htc.com/us/smartphones/htc-desire-626/"]];
+    [htcProductsArray addObject:[[Product alloc]initWithCompanyName:@"HTC" withProductName:@"HTC One A9" withProductURL:@"https://www.htc.com/us/smartphones/htc-one-a9/" withProductImage:@"logo_HTC_48x48.jpg"]];
+    [htcProductsArray addObject:[[Product alloc]initWithCompanyName:@"HTC" withProductName:@"HTC One M9" withProductURL:@"https://www.htc.com/us/smartphones/htc-one-m9/"  withProductImage:@"logo_HTC_48x48.jpg"]];
+    [htcProductsArray addObject:[[Product alloc]initWithCompanyName:@"HTC" withProductName:@"HTC Desire 626" withProductURL:@"https://www.htc.com/us/smartphones/htc-desire-626/" withProductImage:@"logo_HTC_48x48.jpg"]];
     
+    //self.htcProducts = htcProductsArray;
     
     
     NSMutableArray *companiesLocal = [[NSMutableArray alloc] init];

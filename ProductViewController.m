@@ -7,10 +7,18 @@
 //
 
 #import "ProductViewController.h"
+#import "CompanyViewController.h"
 #import "Company.h"
 #import "Product.h"
+#import "DataAccessObject.h"
+#import "AddOrEditProductViewController.h"
+#import "AddOrEditCompanyViewController.h"
 
 @interface ProductViewController ()
+
+@property (nonatomic, retain) IBOutlet AddOrEditProductViewController *addOrEditProductViewController;
+@property (nonatomic, retain) IBOutlet  ProductViewController *productViewController;
+
 
 @end
 
@@ -40,14 +48,25 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(addButtonTapped:)]; // Colon after addButtonTapped indicates that the method takes an argument.
     self.navigationItem.rightBarButtonItems = @[self.editButtonItem, addButton];
     
+    self.addOrEditProductViewController = [[AddOrEditProductViewController alloc] init];
+    
+    
+    
+    
+    self.addOrEditProductViewController.productViewController = self; // method chaining aka relationship chaining
+    [self.tableView setAllowsSelectionDuringEditing:true]; // Permit selection of rows while in editing mode.
+
 }
 
 // viewWillAppear reloads every time a view loads whereas viewDidLoad loads only once.
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
+    
+    self.addOrEditProductViewController.company = self.company;
 
     [self.tableView reloadData];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -82,21 +101,10 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     // Configure the cell...
-    NSString *productName = [[self.products objectAtIndex:indexPath.row] productName];
-    
-    cell.textLabel.text = productName;
-    
-    if ([self.title isEqualToString:@"Apple mobile devices"]) {
-            [[cell imageView] setImage: [UIImage imageNamed:@"logo_Apple_48x48.jpg"]];
-    } else  if ([self.title isEqualToString:@"Samsung mobile devices"]) {
-            [[cell imageView] setImage: [UIImage imageNamed:@"logo_Samsung_48x48.jpg"]];
-    } else  if ([self.title isEqualToString:@"Microsoft mobile devices"]) {
-            [[cell imageView] setImage: [UIImage imageNamed:@"logo_Microsoft_48x48.jpg"]];
-    } else  if ([self.title isEqualToString:@"HTC mobile devices"]) {
-            [[cell imageView] setImage: [UIImage imageNamed:@"logo_HTC_48x48.jpg"]];
-    } else { // Use generic logo for added companies:
-            [[cell imageView] setImage: [UIImage imageNamed:@"logo_default_48x48.jpg"]];
-    }
+    Product *product = [self.products objectAtIndex:indexPath.row];
+    cell.textLabel.text = product.productName;
+    cell.imageView.image = [UIImage imageNamed:product.productImage];
+//    cell.imageView.image = [UIImage imageNamed:company.companyLogoName];
     
     return cell;
 }
@@ -106,14 +114,26 @@
 {
 //    NSString *productName = [self.products objectAtIndex:[indexPath row]];
     
-    self.webViewController =
-    [[WebViewController alloc]
-     initWithNibName:@"WebViewController" bundle:nil];
-    self.webViewController.productURL = [self.products[indexPath.row] productURL];
+     Product *product = [self.products objectAtIndex:[indexPath row]];
     
-    [self.navigationController
-     pushViewController:self.webViewController
-     animated:YES];
+    if ([self.tableView isEditing]) {
+        self.addOrEditProductViewController.isEditing = self.isEditing;
+        [self.navigationController pushViewController:self.addOrEditProductViewController animated:YES];
+        self.addOrEditProductViewController.product = product;
+    }
+    else {
+        
+        self.webViewController =
+        [[WebViewController alloc]
+         initWithNibName:@"WebViewController" bundle:nil];
+        self.webViewController.productURL = [self.products[indexPath.row] productURL];
+        
+        [self.navigationController
+         pushViewController:self.webViewController
+         animated:YES];
+        
+    }
+    
 
 }
 /*
@@ -167,56 +187,9 @@
 
 - (IBAction)addButtonTapped:(id)sender {
     
-    UIAlertController *popUp = [UIAlertController alertControllerWithTitle:@"Add a product" message:@"Please enter product information to be added." preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Submit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { // "^" indicates a block
-        Product* newProduct = [[Product alloc] init];
-        
-        if (![popUp.textFields[0].text isEqualToString:@""] && ![popUp.textFields[1].text isEqualToString:@""]) {
-            
-            newProduct.productName = popUp.textFields[0].text;
-            newProduct.productURL = popUp.textFields[1].text;
-            
-            [self.products addObject:newProduct]; // Add new product to array of products.
-            
-            NSLog(@"The new product is %@\n\n", newProduct.productName);
-            NSLog(@"The new URL is %@\n\n", newProduct.productURL);
-            
-            NSLog(@"Submitted\n\n");
-            
-            dispatch_async(dispatch_get_main_queue(), ^{ // Must wrap reload to get it to affect main queue because it otherwise would be in a block on its own thread
-                // do work here
-                [self.tableView reloadData];
-            });
-            
-        }
-    }];
-    
-    [popUp addAction:defaultAction];
-    
-    [popUp addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.placeholder = @"Product name...";
-    }];
-    
-    
-    [popUp addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.placeholder = @"Product URL...";
-    }];
-    
-    // Add cancel button:
-    UIAlertAction* cancel = [UIAlertAction
-                             actionWithTitle:@"Cancel"
-                             style:UIAlertActionStyleDefault
-                             handler:^(UIAlertAction * action)
-                             {
-                                 [popUp dismissViewControllerAnimated:YES completion:nil];
-                                 
-                             }];
-    
-    [popUp addAction:cancel];
-    // End add cancel button.
-    
-    [self presentViewController:popUp animated:YES completion:nil];
+    [self setEditing:NO];
+    _addOrEditProductViewController.isEditing = self.isEditing;
+    [self.navigationController pushViewController:self.addOrEditProductViewController animated:YES];
     
 }
 

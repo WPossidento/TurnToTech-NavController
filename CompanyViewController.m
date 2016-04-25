@@ -47,7 +47,7 @@
     self.navigationItem.leftBarButtonItem = addButton;
     
     self.addOrEditcompanyViewController = [[AddOrEditCompanyViewController alloc] init];
-    self.addOrEditcompanyViewController.companyViewController = self; // method chaining aka relationship chaining
+   // self.addOrEditcompanyViewController.companyViewController = self; // method chaining aka relationship chaining
 
 //  What is Data Access Object?
     
@@ -59,13 +59,14 @@
     
     self.title = @"Mobile device makers";
     
-    [self.tableView setAllowsSelectionDuringEditing:true];
+    [self.tableView setAllowsSelectionDuringEditing:true]; // Permit selection of rows while in editing mode.
 
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     self.companies = [[DataAccessObject sharedObject] companies];
     [self.tableView reloadData];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -100,28 +101,10 @@
 //    [cell setEditingAccessoryType:UITableViewCellAccessoryDetailButton]; for abandoned idea of using Info button = Accessory Detail Button for updating companies.
     
     // Configure the cell...
-    Company * company = [self.companies objectAtIndex:indexPath.row];
-    
-    
+    Company *company = [self.companies objectAtIndex:indexPath.row];
     
     cell.textLabel.text = company.companyName;
     cell.imageView.image = [UIImage imageNamed:company.companyLogoName];
-    
-//    if (!companyName) {
-//    }
-//    else {
-//        if ([companyName isEqualToString:@"Apple"]) {
-//            [[cell imageView] setImage: [UIImage imageNamed:@"logo_Apple_48x48.jpg"]];
-//        } else  if ([companyName isEqualToString:@"Samsung"]) {
-//            [[cell imageView] setImage: [UIImage imageNamed:@"logo_Samsung_48x48.jpg"]];
-//        } else  if ([companyName isEqualToString:@"Microsoft"]) {
-//            [[cell imageView] setImage: [UIImage imageNamed:@"logo_Microsoft_48x48.jpg"]];
-//        } else if ([companyName isEqualToString:@"HTC"]) {
-//            [[cell imageView] setImage: [UIImage imageNamed:@"logo_HTC_48x48.jpg"]];
-//        } else { // Use generic logo for added companies:
-//            [[cell imageView] setImage: [UIImage imageNamed:@"logo_default_48x48.jpg"]];
-//        }
-//    }
     
     return cell;
 
@@ -158,53 +141,11 @@
 }
 
 - (IBAction)addButtonTapped:(id)sender {
-//    
-//    UIAlertController *popUp = [UIAlertController alertControllerWithTitle:@"Add a company" message:@"Please enter a company to add." preferredStyle:UIAlertControllerStyleAlert];
-//    
-//    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Submit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { // "^" indicates a block
-//        
-//        if (![popUp.textFields[0].text isEqualToString: @""]) {
-//            Company* newCompany = [[Company alloc] init];
-//            newCompany.products = [[NSMutableArray alloc] init];
-//
-//            newCompany.companyName = popUp.textFields[0].text;
-//        
-//            [self.companies addObject:newCompany]; // Add new company to array of companies.
-//        
-//            NSLog(@"The new company is %@\n\n", newCompany.companyName);
-//        
-//            NSLog(@"Submitted\n\n");
-//            
-//            dispatch_async(dispatch_get_main_queue(), ^{ // Must wrap reload to get it to affect main queue because it otherwise would be in a block on its own thread
-//                // do work here
-//                [self.tableView reloadData];
-//        });
-//        
-//        }
-//    }];
-//    
-//    [popUp addAction:defaultAction];
-//    
-//    [popUp addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-//        textField.placeholder = @"Add a company name...";
-//    }];
-//    
-//    // Add cancel button:
-//    UIAlertAction* cancel = [UIAlertAction
-//                             actionWithTitle:@"Cancel"
-//                             style:UIAlertActionStyleDefault
-//                             handler:^(UIAlertAction * action)
-//                             {
-//                                 [popUp dismissViewControllerAnimated:YES completion:nil];
-//                                 
-//                             }];
-//    
-//    [popUp addAction:cancel];
-//    // End add cancel button.
-//    
-// //   [self presentViewController:popUp animated:YES completion:nil];
+    
+    [self setEditing:NO];
+    
+    _addOrEditcompanyViewController.isEditing = self.isEditing;
     [self.navigationController pushViewController:self.addOrEditcompanyViewController animated:YES];
-
 }
 
 
@@ -246,9 +187,6 @@
 // RE-ORDERING: Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-//    NSString *stringToMove = self.companyList[fromIndexPath.row]; // NOTE: fromIndexPath.row
-//        [self.companyList removeObjectAtIndex:fromIndexPath.row]; // NOTE: fromIndexPath.row
-//    [self.companyList insertObject:stringToMove atIndex:toIndexPath.row]; // NOTE: toIndexPath.row
     
     NSString *stringToMove = self.companies[fromIndexPath.row]; // NOTE: fromIndexPath.row
     [self.companies removeObjectAtIndex:fromIndexPath.row]; // NOTE: fromIndexPath.row
@@ -261,25 +199,27 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.tableView isEditing]) {
-//    [self.tableView isEditing];
-        
-        
-        
-        
-    }
-    
     Company *company = [self.companies objectAtIndex:[indexPath row]];
     
-    self.productViewController.title = company.companyTitle;
+    if ([self.tableView isEditing]) {
+//            [self.navigationController pushViewController:self.addOrEditcompanyViewController animated:YES];
+        // AVOID passing CompanyViewController to AddOrEditCompanyViewController by removing "self." as follows:
+        _addOrEditcompanyViewController.isEditing = self.isEditing;
+        [self.navigationController pushViewController:_addOrEditcompanyViewController animated:YES];
+        _addOrEditcompanyViewController.company = company;
+        
+    } else {
     
-    self.productViewController.products = company.products;
-
+    _productViewController.title = company.companyTitle;
+    
+    _productViewController.products = company.products;
+    
+    _productViewController.company = company;
     
     [self.navigationController
-        pushViewController:self.productViewController
+        pushViewController: self.productViewController
         animated:YES];
-
+    }
 }
 
 @end

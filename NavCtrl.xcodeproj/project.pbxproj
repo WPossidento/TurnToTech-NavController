@@ -23,6 +23,8 @@
 		48A656E718163C1B00746D36 /* CompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A656E518163C1B00746D36 /* CompanyViewController.xib */; };
 		48A656EB18163F8700746D36 /* ProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A656E918163F8700746D36 /* ProductViewController.m */; };
 		48A656EE1816468000746D36 /* Sunflower.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48A656ED1816468000746D36 /* Sunflower.gif */; };
+		520CEC911CC542250068BC13 /* AddOrEditProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 520CEC8F1CC542250068BC13 /* AddOrEditProductViewController.m */; };
+		520CEC921CC542250068BC13 /* AddOrEditProductViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 520CEC901CC542250068BC13 /* AddOrEditProductViewController.xib */; };
 		521504331CB5CE6E0083F81A /* DataAccessObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 521504321CB5CE6E0083F81A /* DataAccessObject.m */; };
 		522EB09C1CAD7EF500756FD3 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 522EB09B1CAD7EF500756FD3 /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		523502831CAAE7DB0033FE59 /* logo_Apple_48x48.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 523502821CAAE7DB0033FE59 /* logo_Apple_48x48.jpg */; };
@@ -71,6 +73,9 @@
 		48A656E818163F8700746D36 /* ProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductViewController.h; path = ../ProductViewController.h; sourceTree = "<group>"; };
 		48A656E918163F8700746D36 /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductViewController.m; path = ../ProductViewController.m; sourceTree = "<group>"; };
 		48A656ED1816468000746D36 /* Sunflower.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Sunflower.gif; sourceTree = "<group>"; };
+		520CEC8E1CC542250068BC13 /* AddOrEditProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOrEditProductViewController.h; sourceTree = "<group>"; };
+		520CEC8F1CC542250068BC13 /* AddOrEditProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOrEditProductViewController.m; sourceTree = "<group>"; };
+		520CEC901CC542250068BC13 /* AddOrEditProductViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddOrEditProductViewController.xib; sourceTree = "<group>"; };
 		521504311CB5CE6E0083F81A /* DataAccessObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataAccessObject.h; sourceTree = "<group>"; };
 		521504321CB5CE6E0083F81A /* DataAccessObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataAccessObject.m; sourceTree = "<group>"; };
 		522EB09B1CAD7EF500756FD3 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -148,6 +153,9 @@
 			children = (
 				48A656E818163F8700746D36 /* ProductViewController.h */,
 				48A656E918163F8700746D36 /* ProductViewController.m */,
+				520CEC8E1CC542250068BC13 /* AddOrEditProductViewController.h */,
+				520CEC8F1CC542250068BC13 /* AddOrEditProductViewController.m */,
+				520CEC901CC542250068BC13 /* AddOrEditProductViewController.xib */,
 				5293D7341CB3102A00DD50BD /* Product.h */,
 				5293D7351CB3102A00DD50BD /* Product.m */,
 				5235028A1CAB12B60033FE59 /* WebViewController.h */,
@@ -312,6 +320,7 @@
 			files = (
 				48A656EE1816468000746D36 /* Sunflower.gif in Resources */,
 				48A656E718163C1B00746D36 /* CompanyViewController.xib in Resources */,
+				520CEC921CC542250068BC13 /* AddOrEditProductViewController.xib in Resources */,
 				48A656BF18163BF200746D36 /* InfoPlist.strings in Resources */,
 				5235028E1CAB12B60033FE59 /* WebViewController.xib in Resources */,
 				523502871CAAE8050033FE59 /* logo_Microsoft_48x48.jpg in Resources */,
@@ -346,6 +355,7 @@
 				5293D7331CB30EA100DD50BD /* Company.m in Sources */,
 				527564A41CBEDEC7006C8A64 /* AddOrEditCompanyViewController.m in Sources */,
 				5235028D1CAB12B60033FE59 /* WebViewController.m in Sources */,
+				520CEC911CC542250068BC13 /* AddOrEditProductViewController.m in Sources */,
 				48A656C518163BF200746D36 /* NavControllerAppDelegate.m in Sources */,
 				48A656C118163BF200746D36 /* main.m in Sources */,
 				48A656EB18163F8700746D36 /* ProductViewController.m in Sources */,

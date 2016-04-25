@@ -10,6 +10,8 @@
 #import "CompanyViewController.h"
 #import "Company.h"
 
+#import "DataAccessObject.h"
+
 @interface AddOrEditCompanyViewController ()
 
 @end
@@ -19,6 +21,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    if (self.company && self.isEditing) {
+        self.companyNameTextField.text = self.company.companyName;
+        self.companyTitleTextField.text = self.company.companyTitle;
+        self.companyLogoNameTextField.text = self.company.companyLogoName;
+    } else {
+        self.companyNameTextField.text = @"";
+        self.companyTitleTextField.text = @"";
+        self.companyLogoNameTextField.text = @"";
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,11 +60,19 @@
     [_companyTitleTextField release];
     [_companyLogoNameTextField release];
     [super dealloc];
-    
 }
 
 - (IBAction)SubmitButton:(id)sender {
-    if (![_companyNameTextField.text isEqualToString:@""] && ![_companyTitleTextField.text isEqualToString:@""]) {
+    
+    if (self.isEditing) {
+        _company.companyName = _companyNameTextField.text;
+        _company.companyTitle = _companyTitleTextField.text;
+        _company.companyLogoName = _companyLogoNameTextField.text;
+        //[self.companyViewController.tableView reloadData];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+    else if (![_companyNameTextField.text isEqualToString:@""] && ![_companyTitleTextField.text isEqualToString:@""]) {
         Company* newCompany = [[Company alloc] init];
         newCompany.companyName = [[NSString alloc] init];
         newCompany.companyTitle = [[NSString alloc] init];
@@ -58,14 +80,18 @@
         newCompany.products = [[NSMutableArray alloc] init];
         newCompany.companyName = _companyNameTextField.text;
         newCompany.companyTitle = _companyTitleTextField.text;
-        newCompany.companyLogoName = @"logo_default_48x48.jpg";
-        [self.companyViewController.companies addObject:newCompany];
-        [self.companyViewController.tableView reloadData];
-        [self.navigationController popViewControllerAnimated:YES];
+        if (![_companyLogoNameTextField.text isEqualToString:@""]) {
+            newCompany.companyLogoName = _companyLogoNameTextField.text;
+        } else {
+            newCompany.companyLogoName = @"logo_default_48x48.jpg";
+        }
         
-        NSLog(@"New company data = %@, %@, %@", newCompany.companyName, newCompany.companyTitle, newCompany.companyLogoName);
-    }
+        [[DataAccessObject sharedObject].companies addObject:newCompany];
+       // [self.companyViewController.companies addObject:newCompany];
 
+       //[self.companyViewController.tableView reloadData];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (IBAction)CancelButton:(id)sender {
