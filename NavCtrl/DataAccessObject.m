@@ -66,7 +66,7 @@
     
     //self.appleProducts = appleProductsArray;
     
-    
+ 
     // Samsung products
     NSMutableArray *samsungProductsArray = [[NSMutableArray alloc] init];
     [samsungProductsArray addObject:[[Product alloc]initWithCompanyName:@"Samsung" withProductName:@"Galaxy S7" withProductURL:@"http://www.samsung.com/us/mobile/cell-phones/SM-G935AZDAATT" withProductImage:@"logo_Samsung_48x48.jpg"]];

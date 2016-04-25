@@ -69,7 +69,7 @@
         [self.navigationController popViewControllerAnimated:YES];
         
         NSLog(@"REVISED product data = %@, %@, %@", _product.productName, _product.productURL, _product.productImage);
-        
+
     }
         
     else if (![_productNameTextField.text isEqualToString:@""] && ![_productURLTextField.text isEqualToString:@""]) {
