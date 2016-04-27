@@ -11,7 +11,14 @@
 @interface NavControllerAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
 @property (strong, nonatomic) UINavigationController *navigationController;
+
+
+
+
+// added from appCoda tutorial https://www.appcoda.com/parse-xml-and-json-web-service/ :
++(void)downloadDataFromURL:(NSURL *)url withCompletionHandler:(void(^)(NSData *data))completionHandler; // the "+" indicates a class method.
+
+
 
 @end

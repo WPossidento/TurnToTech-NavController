@@ -58,6 +58,17 @@
 // This method name is self-explanatory:
 -(void)createCompaniesAndTheirProducts{
     
+    
+    
+    
+    // Amazon products and services
+    NSMutableArray *amazonProductsArray = [[NSMutableArray alloc] init];
+    [amazonProductsArray addObject:[[Product alloc]initWithCompanyName:@"Amazon" withProductName:@"Amazon Kindle" withProductURL:@"http://www.amazon.com/b/?ie=UTF8&node=6669702011" withProductImage:@"logo_Amazon_48x48.png"]];
+    [amazonProductsArray addObject:[[Product alloc]initWithCompanyName:@"Amazon" withProductName:@"Amazon Web Services" withProductURL:@"http://aws.amazon.com/s/dm/landing-page/join-aws/"  withProductImage:@"logo_Amazon_48x48.png"]];
+
+    //self.amazonProducts = amazonProductsArray;
+    
+    
     // Apple products
     NSMutableArray *appleProductsArray = [[NSMutableArray alloc] init];
     [appleProductsArray addObject:[[Product alloc]initWithCompanyName:@"Apple" withProductName:@"iPad" withProductURL:@"http://www.apple.com/ipad-pro/" withProductImage:@"logo_Apple_48x48.jpg"]];
@@ -67,13 +78,13 @@
     //self.appleProducts = appleProductsArray;
     
  
-    // Samsung products
-    NSMutableArray *samsungProductsArray = [[NSMutableArray alloc] init];
-    [samsungProductsArray addObject:[[Product alloc]initWithCompanyName:@"Samsung" withProductName:@"Galaxy S7" withProductURL:@"http://www.samsung.com/us/mobile/cell-phones/SM-G935AZDAATT" withProductImage:@"logo_Samsung_48x48.jpg"]];
-    [samsungProductsArray addObject:[[Product alloc]initWithCompanyName:@"Samsung" withProductName:@"Galaxy Note" withProductURL:@"http://www.samsung.com/us/mobile/cell-phones/SM-N920AZDEATT" withProductImage:@"logo_Samsung_48x48.jpg"]];
-    [samsungProductsArray addObject:[[Product alloc]initWithCompanyName:@"Samsung" withProductName:@"Galaxy Tab" withProductURL:@"http://www.samsung.com/us/mobile/galaxy-tab/SM-T230NZWAXAR" withProductImage:@"logo_Samsung_48x48.jpg"]];
+    // Google products & services
+    NSMutableArray *googleProductsArray = [[NSMutableArray alloc] init];
+    [googleProductsArray addObject:[[Product alloc]initWithCompanyName:@"Google" withProductName:@"Google Maps" withProductURL:@"https://maps.google.com" withProductImage:@"logo_Google_48x48.png"]];
+    [googleProductsArray addObject:[[Product alloc]initWithCompanyName:@"Google" withProductName:@"Google Image Search" withProductURL:@"https://images.google.com"  withProductImage:@"logo_Google_48x48.png"]];
+    [googleProductsArray addObject:[[Product alloc]initWithCompanyName:@"Google" withProductName:@"Google Alerts" withProductURL:@"https://www.google.com/alerts" withProductImage:@"logo_Google_48x48.png"]];
     
-    //self.samsungProducts = samsungProductsArray;
+    //self.googleProducts = googleProductsArray;
     
     
     // Microsoft products
@@ -85,24 +96,17 @@
     //self.microsoftProducts = microsoftProductsArray;
     
     
-    // HTC products
-    NSMutableArray *htcProductsArray = [[NSMutableArray alloc] init];
-    [htcProductsArray addObject:[[Product alloc]initWithCompanyName:@"HTC" withProductName:@"HTC One A9" withProductURL:@"https://www.htc.com/us/smartphones/htc-one-a9/" withProductImage:@"logo_HTC_48x48.jpg"]];
-    [htcProductsArray addObject:[[Product alloc]initWithCompanyName:@"HTC" withProductName:@"HTC One M9" withProductURL:@"https://www.htc.com/us/smartphones/htc-one-m9/"  withProductImage:@"logo_HTC_48x48.jpg"]];
-    [htcProductsArray addObject:[[Product alloc]initWithCompanyName:@"HTC" withProductName:@"HTC Desire 626" withProductURL:@"https://www.htc.com/us/smartphones/htc-desire-626/" withProductImage:@"logo_HTC_48x48.jpg"]];
-    
-    //self.htcProducts = htcProductsArray;
-    
     
     NSMutableArray *companiesLocal = [[NSMutableArray alloc] init];
     
+   [companiesLocal addObject:[[Company alloc]initWithCompanyName:@"Amazon" withCompanyTitle:@"Amazon products & services" withCompanyLogoName:@"logo_Amazon_48x48.png" withProducts:amazonProductsArray]];
+    
     [companiesLocal addObject:[[Company alloc ]initWithCompanyName:@"Apple" withCompanyTitle:@"Apple mobile devices" withCompanyLogoName:@"logo_Apple_48x48.jpg" withProducts:appleProductsArray]];
     
-    [companiesLocal addObject:[[Company alloc]initWithCompanyName:@"Samsung" withCompanyTitle:@"Samsung mobile devices" withCompanyLogoName:@"logo_Samsung_48x48.jpg" withProducts:samsungProductsArray]];
+    [companiesLocal addObject:[[Company alloc] initWithCompanyName:@"Google" withCompanyTitle:@"Google products & services" withCompanyLogoName:@"logo_Google_48x48.png" withProducts:googleProductsArray]];
     
     [companiesLocal addObject:[[Company alloc] initWithCompanyName:@"Microsoft" withCompanyTitle:@"Microsoft mobile devices" withCompanyLogoName:@"logo_Microsoft_48x48.jpg" withProducts:microsoftProductsArray]];
-    
-    [companiesLocal addObject:[[Company alloc] initWithCompanyName:@"HTC" withCompanyTitle:@"HTC mobile devices" withCompanyLogoName:@"logo_HTC_48x48.jpg" withProducts:htcProductsArray]];
+
     
     self.companies = companiesLocal;
 

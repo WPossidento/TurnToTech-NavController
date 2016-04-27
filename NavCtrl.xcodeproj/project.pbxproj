@@ -33,6 +33,8 @@
 		523502891CAAE8220033FE59 /* logo_HTC_48x48.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 523502881CAAE8220033FE59 /* logo_HTC_48x48.jpg */; };
 		5235028D1CAB12B60033FE59 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5235028B1CAB12B60033FE59 /* WebViewController.m */; };
 		5235028E1CAB12B60033FE59 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5235028C1CAB12B60033FE59 /* WebViewController.xib */; };
+		524371CE1CCFFA88005C2F59 /* logo_Amazon_48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = 524371CD1CCFFA88005C2F59 /* logo_Amazon_48x48.png */; };
+		524371D01CCFFA95005C2F59 /* logo_Google_48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = 524371CF1CCFFA95005C2F59 /* logo_Google_48x48.png */; };
 		526DAD1B1CB86A480056C02B /* logo_default_48x48.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 526DAD1A1CB86A480056C02B /* logo_default_48x48.jpg */; };
 		527564A41CBEDEC7006C8A64 /* AddOrEditCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 527564A21CBEDEC7006C8A64 /* AddOrEditCompanyViewController.m */; };
 		527564A51CBEDEC7006C8A64 /* AddOrEditCompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 527564A31CBEDEC7006C8A64 /* AddOrEditCompanyViewController.xib */; };
@@ -86,6 +88,8 @@
 		5235028A1CAB12B60033FE59 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		5235028B1CAB12B60033FE59 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		5235028C1CAB12B60033FE59 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
+		524371CD1CCFFA88005C2F59 /* logo_Amazon_48x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_Amazon_48x48.png; sourceTree = "<group>"; };
+		524371CF1CCFFA95005C2F59 /* logo_Google_48x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_Google_48x48.png; sourceTree = "<group>"; };
 		526DAD1A1CB86A480056C02B /* logo_default_48x48.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo_default_48x48.jpg; sourceTree = "<group>"; };
 		527564A11CBEDEC7006C8A64 /* AddOrEditCompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOrEditCompanyViewController.h; sourceTree = "<group>"; };
 		527564A21CBEDEC7006C8A64 /* AddOrEditCompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOrEditCompanyViewController.m; sourceTree = "<group>"; };
@@ -211,9 +215,11 @@
 			isa = PBXGroup;
 			children = (
 				526DAD1A1CB86A480056C02B /* logo_default_48x48.jpg */,
+				524371CD1CCFFA88005C2F59 /* logo_Amazon_48x48.png */,
 				523502821CAAE7DB0033FE59 /* logo_Apple_48x48.jpg */,
-				523502841CAAE7EA0033FE59 /* logo_Samsung_48x48.jpg */,
+				524371CF1CCFFA95005C2F59 /* logo_Google_48x48.png */,
 				523502861CAAE8050033FE59 /* logo_Microsoft_48x48.jpg */,
+				523502841CAAE7EA0033FE59 /* logo_Samsung_48x48.jpg */,
 				523502881CAAE8220033FE59 /* logo_HTC_48x48.jpg */,
 				48A656ED1816468000746D36 /* Sunflower.gif */,
 				48A656BC18163BF200746D36 /* NavCtrl-Info.plist */,
@@ -327,8 +333,10 @@
 				527564A51CBEDEC7006C8A64 /* AddOrEditCompanyViewController.xib in Resources */,
 				523502831CAAE7DB0033FE59 /* logo_Apple_48x48.jpg in Resources */,
 				523502851CAAE7EA0033FE59 /* logo_Samsung_48x48.jpg in Resources */,
+				524371D01CCFFA95005C2F59 /* logo_Google_48x48.png in Resources */,
 				48A656C718163BF200746D36 /* Images.xcassets in Resources */,
 				526DAD1B1CB86A480056C02B /* logo_default_48x48.jpg in Resources */,
+				524371CE1CCFFA88005C2F59 /* logo_Amazon_48x48.png in Resources */,
 				523502891CAAE8220033FE59 /* logo_HTC_48x48.jpg in Resources */,
 				48A656C718163BF200746D36 /* Images.xcassets in Resources */,
 			);

@@ -15,6 +15,7 @@
 }
 
 @property (nonatomic, retain) NSMutableArray *companies;
+@property (nonatomic, retain) NSMutableDictionary *stockDetailsDictionary;
 
 
 
