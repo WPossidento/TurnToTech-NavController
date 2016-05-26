@@ -58,6 +58,7 @@
     NSLog(@"dealloc add edit controller");
     [_companyNameTextField release];
     [_companyTitleTextField release];
+    [_companyStockSymbolTextField release];
     [_companyLogoNameTextField release];
     [super dealloc];
 }
@@ -67,26 +68,37 @@
     if (self.isEditing) {
         _company.companyName = _companyNameTextField.text;
         _company.companyTitle = _companyTitleTextField.text;
+        _company.companyStockSymbol = _companyStockSymbolTextField.text;
         _company.companyLogoName = _companyLogoNameTextField.text;
         //[self.companyViewController.tableView reloadData];
         [self.navigationController popViewControllerAnimated:YES];
+        
+       [[DataAccessObject sharedObject] editCompany:_company];
     }
     
-    else if (![_companyNameTextField.text isEqualToString:@""] && ![_companyTitleTextField.text isEqualToString:@""]) {
+    else if (![_companyNameTextField.text isEqualToString:@""] && ![_companyTitleTextField.text isEqualToString:@""] && ![_companyStockSymbolTextField.text isEqualToString:@""]) {
         Company* newCompany = [[Company alloc] init];
         newCompany.companyName = [[NSString alloc] init];
         newCompany.companyTitle = [[NSString alloc] init];
+        newCompany.companyStockSymbol = [[NSString alloc] init];
         newCompany.companyLogoName = [[NSString alloc] init];
         newCompany.products = [[NSMutableArray alloc] init];
         newCompany.companyName = _companyNameTextField.text;
         newCompany.companyTitle = _companyTitleTextField.text;
+        newCompany.companyStockSymbol = _companyStockSymbolTextField.text;
+
+
         if (![_companyLogoNameTextField.text isEqualToString:@""]) {
             newCompany.companyLogoName = _companyLogoNameTextField.text;
         } else {
             newCompany.companyLogoName = @"logo_default_48x48.jpg";
         }
         
-        [[DataAccessObject sharedObject].companies addObject:newCompany];
+        //call DAO addCompany function
+//        [[DataAccessObject sharedObject].companies addObject:newCompany]; //move this to DAO addCompany function
+
+        [[DataAccessObject sharedObject] addCompany:newCompany];
+        
        // [self.companyViewController.companies addObject:newCompany];
 
        //[self.companyViewController.tableView reloadData];

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ProductViewController.h"
 #import "Company.h"
+#import "DataAccessObject.h"
 
 
 @interface AddOrEditProductViewController : UIViewController
@@ -23,7 +24,10 @@
 - (IBAction)SubmitButton:(id)sender;
 - (IBAction)CancelButton:(id)sender;
 
+@property (nonatomic, retain) NSString *productURL;
+
 @property (nonatomic, retain) NSMutableArray *companies;
+@property (nonatomic, retain) NSMutableArray *products;
 @property (nonatomic, retain) Company *company;
 @property(nonatomic, retain) Product *product;
 @property (nonatomic, retain) Company *productImage;

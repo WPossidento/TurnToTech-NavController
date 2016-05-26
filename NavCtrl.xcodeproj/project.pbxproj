@@ -26,6 +26,7 @@
 		520CEC911CC542250068BC13 /* AddOrEditProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 520CEC8F1CC542250068BC13 /* AddOrEditProductViewController.m */; };
 		520CEC921CC542250068BC13 /* AddOrEditProductViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 520CEC901CC542250068BC13 /* AddOrEditProductViewController.xib */; };
 		521504331CB5CE6E0083F81A /* DataAccessObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 521504321CB5CE6E0083F81A /* DataAccessObject.m */; };
+		522B205F1CD7DF2200AFD09A /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 522B205E1CD7DF2200AFD09A /* libsqlite3.0.tbd */; };
 		522EB09C1CAD7EF500756FD3 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 522EB09B1CAD7EF500756FD3 /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		523502831CAAE7DB0033FE59 /* logo_Apple_48x48.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 523502821CAAE7DB0033FE59 /* logo_Apple_48x48.jpg */; };
 		523502851CAAE7EA0033FE59 /* logo_Samsung_48x48.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 523502841CAAE7EA0033FE59 /* logo_Samsung_48x48.jpg */; };
@@ -35,6 +36,7 @@
 		5235028E1CAB12B60033FE59 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5235028C1CAB12B60033FE59 /* WebViewController.xib */; };
 		524371CE1CCFFA88005C2F59 /* logo_Amazon_48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = 524371CD1CCFFA88005C2F59 /* logo_Amazon_48x48.png */; };
 		524371D01CCFFA95005C2F59 /* logo_Google_48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = 524371CF1CCFFA95005C2F59 /* logo_Google_48x48.png */; };
+		525979E61CE3DC7E00F2AB49 /* NavCtrlDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 525979E51CE3DC7E00F2AB49 /* NavCtrlDB.db */; };
 		526DAD1B1CB86A480056C02B /* logo_default_48x48.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 526DAD1A1CB86A480056C02B /* logo_default_48x48.jpg */; };
 		527564A41CBEDEC7006C8A64 /* AddOrEditCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 527564A21CBEDEC7006C8A64 /* AddOrEditCompanyViewController.m */; };
 		527564A51CBEDEC7006C8A64 /* AddOrEditCompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 527564A31CBEDEC7006C8A64 /* AddOrEditCompanyViewController.xib */; };
@@ -80,6 +82,7 @@
 		520CEC901CC542250068BC13 /* AddOrEditProductViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddOrEditProductViewController.xib; sourceTree = "<group>"; };
 		521504311CB5CE6E0083F81A /* DataAccessObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataAccessObject.h; sourceTree = "<group>"; };
 		521504321CB5CE6E0083F81A /* DataAccessObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataAccessObject.m; sourceTree = "<group>"; };
+		522B205E1CD7DF2200AFD09A /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		522EB09B1CAD7EF500756FD3 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		523502821CAAE7DB0033FE59 /* logo_Apple_48x48.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo_Apple_48x48.jpg; sourceTree = "<group>"; };
 		523502841CAAE7EA0033FE59 /* logo_Samsung_48x48.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo_Samsung_48x48.jpg; sourceTree = "<group>"; };
@@ -90,6 +93,7 @@
 		5235028C1CAB12B60033FE59 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		524371CD1CCFFA88005C2F59 /* logo_Amazon_48x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_Amazon_48x48.png; sourceTree = "<group>"; };
 		524371CF1CCFFA95005C2F59 /* logo_Google_48x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_Google_48x48.png; sourceTree = "<group>"; };
+		525979E51CE3DC7E00F2AB49 /* NavCtrlDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = NavCtrlDB.db; sourceTree = "<group>"; };
 		526DAD1A1CB86A480056C02B /* logo_default_48x48.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo_default_48x48.jpg; sourceTree = "<group>"; };
 		527564A11CBEDEC7006C8A64 /* AddOrEditCompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOrEditCompanyViewController.h; sourceTree = "<group>"; };
 		527564A21CBEDEC7006C8A64 /* AddOrEditCompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOrEditCompanyViewController.m; sourceTree = "<group>"; };
@@ -105,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				522B205F1CD7DF2200AFD09A /* libsqlite3.0.tbd in Frameworks */,
 				522EB09C1CAD7EF500756FD3 /* WebKit.framework in Frameworks */,
 				48A656B718163BF200746D36 /* CoreGraphics.framework in Frameworks */,
 				48A656B918163BF200746D36 /* UIKit.framework in Frameworks */,
@@ -191,6 +196,7 @@
 		48A656B318163BF200746D36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				522B205E1CD7DF2200AFD09A /* libsqlite3.0.tbd */,
 				522EB09B1CAD7EF500756FD3 /* WebKit.framework */,
 				48A656B418163BF200746D36 /* Foundation.framework */,
 				48A656B618163BF200746D36 /* CoreGraphics.framework */,
@@ -214,6 +220,7 @@
 		48A656BB18163BF200746D36 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				525979E51CE3DC7E00F2AB49 /* NavCtrlDB.db */,
 				526DAD1A1CB86A480056C02B /* logo_default_48x48.jpg */,
 				524371CD1CCFFA88005C2F59 /* logo_Amazon_48x48.png */,
 				523502821CAAE7DB0033FE59 /* logo_Apple_48x48.jpg */,
@@ -324,6 +331,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				525979E61CE3DC7E00F2AB49 /* NavCtrlDB.db in Resources */,
 				48A656EE1816468000746D36 /* Sunflower.gif in Resources */,
 				48A656E718163C1B00746D36 /* CompanyViewController.xib in Resources */,
 				520CEC921CC542250068BC13 /* AddOrEditProductViewController.xib in Resources */,

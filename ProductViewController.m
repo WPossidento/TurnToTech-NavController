@@ -50,12 +50,15 @@
     
     self.addOrEditProductViewController = [[AddOrEditProductViewController alloc] init];
     
-    
-    
-    
     self.addOrEditProductViewController.productViewController = self; // method chaining aka relationship chaining
     [self.tableView setAllowsSelectionDuringEditing:true]; // Permit selection of rows while in editing mode.
-
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    
+    // Create a dataaccess object variable.
+    [[DataAccessObject sharedObject] createCompaniesAndTheirProducts];
+    
 }
 
 // viewWillAppear reloads every time a view loads whereas viewDidLoad loads only once.
@@ -65,6 +68,8 @@
     
     self.addOrEditProductViewController.company = self.company;
 
+    //self.companies = [[DataAccessObject sharedObject] companies];
+    //self.products = [[DataAccessObject sharedObject] products];
     [self.tableView reloadData];
     
 }
@@ -90,7 +95,7 @@
 
 // #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return [self.products count];
+    return [self.company.products count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -101,11 +106,10 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     // Configure the cell...
-    Product *product = [self.products objectAtIndex:indexPath.row];
+    Product *product = [self.company.products objectAtIndex:indexPath.row];
     cell.textLabel.text = product.productName;
     cell.imageView.image = [UIImage imageNamed:product.productImage];
-//    cell.imageView.image = [UIImage imageNamed:company.companyLogoName];
-    
+
     return cell;
 }
 
@@ -114,7 +118,7 @@
 {
 //    NSString *productName = [self.products objectAtIndex:[indexPath row]];
     
-     Product *product = [self.products objectAtIndex:[indexPath row]];
+     Product *product = [self.company.products objectAtIndex:[indexPath row]];
     
     if ([self.tableView isEditing]) {
         self.addOrEditProductViewController.isEditing = self.isEditing;
@@ -126,7 +130,7 @@
         self.webViewController =
         [[WebViewController alloc]
          initWithNibName:@"WebViewController" bundle:nil];
-        self.webViewController.productURL = [self.products[indexPath.row] productURL];
+        self.webViewController.productURL = [self.company.products[indexPath.row] productURL];
         
         [self.navigationController
          pushViewController:self.webViewController
@@ -169,9 +173,9 @@
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-    NSString *stringToMove = self.products[fromIndexPath.row]; // NOTE: fromIndexPath.row
-    [self.products removeObjectAtIndex:fromIndexPath.row]; // NOTE: fromIndexPath.row
-    [self.products insertObject:stringToMove atIndex:toIndexPath.row]; // NOTE: toIndexPath.row
+    NSString *stringToMove = self.company.products[fromIndexPath.row]; // NOTE: fromIndexPath.row
+    [self.company.products removeObjectAtIndex:fromIndexPath.row]; // NOTE: fromIndexPath.row
+    [self.company.products insertObject:stringToMove atIndex:toIndexPath.row]; // NOTE: toIndexPath.row
     
 }
 
@@ -179,7 +183,11 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.products removeObjectAtIndex:indexPath.row];
+        Product* prodId = [self.company.products objectAtIndex:indexPath.row];
+        
+        [[DataAccessObject sharedObject] deleteProduct:prodId];
+        
+        [self.company.products removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil]
                          withRowAnimation:UITableViewRowAnimationTop];
     }
@@ -188,7 +196,8 @@
 - (IBAction)addButtonTapped:(id)sender {
     
     [self setEditing:NO];
-    _addOrEditProductViewController.isEditing = self.isEditing;
+    self.addOrEditProductViewController.isEditing = self.isEditing;
+    self.addOrEditProductViewController.company = self.company;
     [self.navigationController pushViewController:self.addOrEditProductViewController animated:YES];
     
 }

@@ -40,25 +40,32 @@
 
 #import <Foundation/Foundation.h>
 #import "Company.h"
+#import "Product.h"
+#import "CompanyViewController.h"
+#import "sqlite3.h"
 
 @interface DataAccessObject : NSObject
 
+//@property (nonatomic, retain) NSMutableArray *products; // add this?
 @property (nonatomic, retain) NSMutableArray *companies;
-//@property (nonatomic, retain) NSMutableArray *appleProducts;
-//@property (nonatomic, retain) NSMutableArray *samsungProducts;
-//@property (nonatomic, retain) NSMutableArray *microsoftProducts;
-//@property (nonatomic, retain) NSMutableArray *htcProducts;
+@property (nonatomic, retain) NSString *dbPath;
+@property (nonatomic, retain) Company * currentCompany;
+
 
 +(DataAccessObject*) sharedObject;
 
--(void)createCompaniesAndTheirProducts; // This method name is self-explanatory.
+- (void)copyDBToFinalPath;
 
-// getAllCompanies, add, edit, delete
--(NSMutableArray*)getAllCompanies;
+// Patrick told me to add 6 methods (for adding, editing and deleting companies and for adding, editing and deleting products).
 -(void)addCompany:(Company*)company;
+-(void)editCompany:(Company*)company;
+-(void)deleteCompany:(NSString *)companyId;
 
+-(void)addProduct:(Product*)product toCompany:(Company*)company;
+-(void)editProduct:(Product*)product;
+-(void)deleteProduct:(Product*)product;
 
-
+-(void)createCompaniesAndTheirProducts;
 
 
 @end

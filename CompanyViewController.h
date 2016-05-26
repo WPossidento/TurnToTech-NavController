@@ -15,6 +15,7 @@
 }
 
 @property (nonatomic, retain) NSMutableArray *companies;
+//FIXME: remove this
 @property (nonatomic, retain) NSMutableDictionary *stockDetailsDictionary;
 
 

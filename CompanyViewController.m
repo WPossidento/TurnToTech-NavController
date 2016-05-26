@@ -4,7 +4,6 @@
 //
 //  Created by Aditya Narayan on 10/22/13.
 //  Copyright (c) 2013 Aditya Narayan. All rights reserved.
-//
 
 #import "CompanyViewController.h"
 #import "ProductViewController.h"
@@ -42,7 +41,6 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    
     // Display an Add button in the navigation bar for this controller:
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(addButtonTapped:)]; // Colon after addButtonTapped indicates that the method takes an argument.
     self.navigationItem.leftBarButtonItem = addButton;
@@ -55,8 +53,11 @@
 //  In computer software, a data access object (DAO) is an object that provides an abstract interface to some type of database or other persistence mechanism. By mapping application calls to the persistence layer, the DAO provide some specific data operations without exposing details of the database.
     
  // Create a dataaccess object variable.
-    [[DataAccessObject sharedObject] createCompaniesAndTheirProducts]; // Call the createCompaniesAndTheirProducts method and assign the results to dao - the new variable.
-    self.companies = [[DataAccessObject sharedObject] companies] ; // Assign the companies in dao to companies on self - the company view controller.
+     [[DataAccessObject sharedObject] createCompaniesAndTheirProducts];
+//    [[DataAccessObject sharedObject] createCompaniesAndTheirProducts]; // Call the createCompaniesAndTheirProducts method and assign the results to dao - the new variable.
+   // [[DataAccessObject sharedObject] copyDBToFinalPath]; // Call the copyDBToFinalPath method and assign the results to dao - the new variable.
+    
+   // self.companies = [[DataAccessObject sharedObject] companies] ; // Assign the companies in dao to companies on self - the company view controller.
     
     self.title = @"Explore offerings from these companies";
     
@@ -82,7 +83,7 @@
 // Note NSURLSession is a successor to NSURLConnection. Get stock info (from Yahoo! Finance):
 -(void)getStockInfo {
     
-    NSString *URLString = [NSString stringWithFormat:@"http://finance.yahoo.com/d/quotes.csv?s=AMZN+AAPL+GOOG+MSFT&f=a"];
+    NSString *URLString = [NSString stringWithFormat:@"http://finance.yahoo.com/d/quotes.csv?s=AMZN+AAPL+GOOG+MSFT+XOM&f=a"];
     
     NSURL *url = [NSURL URLWithString:URLString];
     
@@ -191,10 +192,12 @@
 
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSString* compId = [[self.companies objectAtIndex:indexPath.row] companyId];
+        
+        [[DataAccessObject sharedObject] deleteCompany:compId];
         [self.companies removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil]
-        withRowAnimation:UITableViewRowAnimationTop];
-        
+                         withRowAnimation:UITableViewRowAnimationTop];
     }
 }
 
@@ -260,23 +263,23 @@
     Company *company = [self.companies objectAtIndex:[indexPath row]];
     
     if ([self.tableView isEditing]) {
-//            [self.navigationController pushViewController:self.addOrEditcompanyViewController animated:YES];
+        //            [self.navigationController pushViewController:self.addOrEditcompanyViewController animated:YES];
         // AVOID passing CompanyViewController to AddOrEditCompanyViewController by removing "self." as follows:
-        _addOrEditcompanyViewController.isEditing = self.isEditing;
+        self.addOrEditcompanyViewController.isEditing = self.isEditing;
         [self.navigationController pushViewController:_addOrEditcompanyViewController animated:YES];
         _addOrEditcompanyViewController.company = company;
         
     } else {
-    
-    _productViewController.title = company.companyTitle;
-    
-    _productViewController.products = company.products;
-    
-    _productViewController.company = company;
-    
-    [self.navigationController
-        pushViewController: self.productViewController
-        animated:YES];
+        
+        self.productViewController.title = company.companyTitle;
+        
+//        self.productViewController.company.products = company.products;
+        
+        self.productViewController.company = company;
+        
+        [self.navigationController
+         pushViewController: self.productViewController
+         animated:YES];
     }
 }
 

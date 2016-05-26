@@ -13,14 +13,14 @@
 
 #import "WebViewController.h"
 
-@interface ProductViewController : UITableViewController
+@interface ProductViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property(nonatomic, retain) NSMutableArray *products;
 
-@property(nonatomic, retain) Product *productName;
+//@property(nonatomic, retain) Product *productName;
 
 @property(nonatomic, retain) WebViewController *webViewController;
 
 @property (nonatomic, retain) Company *company;
+
 
 @end

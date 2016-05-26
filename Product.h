@@ -7,14 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ProductViewController.h"
 
 @interface Product : NSObject
 
-@property (nonatomic, retain) NSString *companyName;
+
+//FIXME: fix this and use it instead of .notation (I added product_id part)
+//-(instancetype)initWithProductName:(NSString*)productName withProductURL:(NSString*)productURL withProductImage:(NSString*)productImage withProduct_id:(NSString*)product_id;
+-(instancetype)initWithProductName:(NSString*)productName withProductURL:(NSString*)productURL withProductImage:(NSString*)productImage;
+
+////FIXME: remove this
+//@property (nonatomic, retain) NSString *companyName;
+
+@property (nonatomic, retain) NSString *company_id;
 @property (nonatomic, retain) NSString *productName;
 @property (nonatomic, retain) NSString *productURL;
 @property (nonatomic, retain) NSString *productImage;
+@property (nonatomic, retain) NSString *product_id;
 
--(instancetype)initWithCompanyName:(NSString*)companyName withProductName:(NSString*)productName withProductURL:(NSString*)productURL withProductImage:(NSString*)productImage;
 
 @end

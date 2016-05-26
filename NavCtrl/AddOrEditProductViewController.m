@@ -25,7 +25,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 //    if (self.product && self.productViewController.isEditing) {
-    if (self.product && self.isEditing) {
+    if (self.company.products && self.isEditing) {
         self.productNameTextField.text = self.product.productName;
         self.productURLTextField.text = self.product.productURL;
         self.productImageTextField.text = self.product.productImage;
@@ -62,33 +62,34 @@
     
 //    if ([self.productViewController.tableView isEditing]) {
     if (self.isEditing) {
+        _product.company_id = _company.companyId;
         _product.productName = _productNameTextField.text;
         _product.productURL = _productURLTextField.text;
         _product.productImage = _productImageTextField.text;
-//        [self.productViewController.tableView reloadData];
+        [self.productViewController.tableView reloadData];////////////////
         [self.navigationController popViewControllerAnimated:YES];
         
         NSLog(@"REVISED product data = %@, %@, %@", _product.productName, _product.productURL, _product.productImage);
-
+        
+//       [[DataAccessObject sharedObject] editCompany:_company];
+        [[DataAccessObject sharedObject] editProduct:_product];
     }
         
     else if (![_productNameTextField.text isEqualToString:@""] && ![_productURLTextField.text isEqualToString:@""]) {
-        Product* newProduct = [[Product alloc] init];
-        newProduct.companyName = [[NSString alloc] init];
-        newProduct.productName = [[NSString alloc] init];
-        newProduct.productURL = [[NSString alloc] init];
-        newProduct.productImage = [[NSString alloc] init];
-        newProduct.productName = self.productNameTextField.text;
-        newProduct.productURL = self.productURLTextField.text;
-        if (![_productImageTextField.text isEqualToString:@""]) {
-            newProduct.productImage = _productImageTextField.text;
-        } else {
-//            newProduct.productImage = self.product.productImage;
-//            newProduct.productImage = _product.productImage;
-            newProduct.productImage = _company.companyLogoName;
+     
+        if ([_productImageTextField.text isEqualToString:@""]) {
+             _productImageTextField.text = _company.companyLogoName;
         }
-
-        [self.productViewController.products addObject:newProduct];
+        
+        //FIXME: use initializer!
+        Product* newProduct = [[Product alloc] initWithProductName:self.productNameTextField.text withProductURL:self.productURLTextField.text withProductImage:self.productImageTextField.text];
+        
+//        newProduct.company_id = _company.companyId;
+//        newProduct.productName = self.productNameTextField.text;
+//        newProduct.productURL = self.productURLTextField.text;
+        
+        [[DataAccessObject sharedObject] addProduct:newProduct toCompany:self.company];
+        
         [self.productViewController.tableView reloadData];
         [self.navigationController popViewControllerAnimated:YES];
         
