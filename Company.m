@@ -7,7 +7,7 @@
 
 
 #import "Company.h"
-#import "CompanyViewController.h"
+//#import "CompanyViewController.h"
 
 // Do not put ANY SQlite anywhere except in the DAO.
 

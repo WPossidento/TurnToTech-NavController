@@ -41,7 +41,7 @@
 #import <Foundation/Foundation.h>
 #import "Company.h"
 #import "Product.h"
-#import "CompanyViewController.h"
+//#import "CompanyViewController.h"
 #import "sqlite3.h"
 
 @interface DataAccessObject : NSObject
@@ -49,7 +49,7 @@
 //@property (nonatomic, retain) NSMutableArray *products; // add this?
 @property (nonatomic, retain) NSMutableArray *companies;
 @property (nonatomic, retain) NSString *dbPath;
-@property (nonatomic, retain) Company * currentCompany;
+@property (nonatomic, assign) Company *currentCompany;
 
 
 +(DataAccessObject*) sharedObject;

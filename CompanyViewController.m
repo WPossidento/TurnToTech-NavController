@@ -62,16 +62,12 @@
     self.title = @"Explore offerings from these companies";
     
     [self.tableView setAllowsSelectionDuringEditing:true]; // Permit selection of rows while in editing mode.
-    
-
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     self.companies = [[DataAccessObject sharedObject] companies];
+    [self getStockPrice];
     [self.tableView reloadData];
-    
-    [self getStockInfo];
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,57 +77,64 @@
 }
 
 // Note NSURLSession is a successor to NSURLConnection. Get stock info (from Yahoo! Finance):
--(void)getStockInfo {
+-(void)getStockPrice {
     
-    NSString *URLString = [NSString stringWithFormat:@"http://finance.yahoo.com/d/quotes.csv?s=AMZN+AAPL+GOOG+MSFT+XOM&f=a"];
+    NSMutableString *tempStr = [NSMutableString stringWithFormat:@"http://download.finance.yahoo.com/d/quotes.csv?s="];
     
-    NSURL *url = [NSURL URLWithString:URLString];
+    for (Company *company in self.companies) {
+        [tempStr appendString:[NSMutableString stringWithFormat:@"%@+", company.companyStockSymbol]];
+    }
     
-    NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
-            dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                    // Check if any data returned.
-                        
-                        // NSLog(@"Here are the data: %@", data);
-                            if (data != nil) {
-                        
-                                 // NSLog(@"The data are NOT nil");
-                                // Convert the returned data into a dictionary.
-                                NSError *error;
-                                NSMutableDictionary *returnedDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-                        
-                                    if (error != nil) {
-                                        NSLog(@"%@", [error localizedDescription]);
-                                    }
-                                    else {
-                                        self.stockDetailsDictionary = [[returnedDict objectForKey:@""] objectAtIndex:0];
-                                    }
-                                    NSLog(@"%@", _stockDetailsDictionary);
-                                    }
-                        
-                            else if (data == nil) {
-                                NSLog(@"The data are nil");
-                            }
-                NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-                NSLog(@"\n\nThe string is: \n%@\n",string);
+    tempStr = (NSMutableString*)[tempStr stringByReplacingCharactersInRange:NSMakeRange([tempStr length]-1, 1) withString:@""];
+    [tempStr appendString:[NSMutableString stringWithFormat:@"%@", @"&f=l1"]];
+    
+    self.stockURLString = [[NSMutableString alloc] initWithFormat:@"%@", tempStr];
+    
+        NSLog(@"tempStr = %@", tempStr);
+    
+    NSURL *url = [NSURL URLWithString:tempStr];
+    
+    NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            // Check if any data returned.
+            if (data != nil) {
                 
-                NSArray *companyStockPriceArray = [string componentsSeparatedByString:@"\n"];
-                long n = [companyStockPriceArray count] - 1; // n = # of elements in the array - Yahoo! adds an extra so subtract 1!
-                    // NSLog(@"n = %lu", n);
-                for (int i = 0; i < n; i++) { // i = counter for looping through array elements
-                    NSLog(@"\n\ncompanyStockPriceArray = %@\n\n", companyStockPriceArray[i]);
-                    [self.companies[i] setCompanyStockPrice:companyStockPriceArray[i]];
+            // Convert the returned data into a dictionary.
+            NSError *error;
+            NSMutableDictionary *returnedDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+                                                  
+            if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+            }
+            else {
+                self.stockDetailsDictionary = [[returnedDict objectForKey:@""] objectAtIndex:0];
                 }
-                
-                // Get back to main thread to reload the table:
-                dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"%@", _stockDetailsDictionary);
+            }
+                                              
+            else if (data == nil) {
+                NSLog(@"The data are nil");
+            }
+            NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+            NSLog(@"\n\nThe string is: \n%@\n",string);
+                                              
+            NSArray *companyStockPriceArray = [string componentsSeparatedByString:@"\n"];
+            long n = [companyStockPriceArray count] - 1; // n = # of elements in the array - Yahoo! adds an extra so subtract 1!
+            //NSLog(@"n = %lu", n);
+            for (int i = 0; i < n; i++) { // i = counter for looping through array elements
+                NSLog(@"\n\ncompanyStockPriceArray = %@\n\n", companyStockPriceArray[i]);
+                [self.companies[i] setCompanyStockPrice:companyStockPriceArray[i]];
+            }
+                                              
+            // Get back to main thread to reload the table:
+            dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
                 });
-                
-                                }];
+                                              
+            }];
     
     [downloadTask resume];
-}
 
+}
 
 #pragma mark - Table view data source
 
@@ -155,15 +158,14 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
-//    [cell setEditingAccessoryType:UITableViewCellAccessoryDetailButton]; for abandoned idea of using Info button = Accessory Detail Button for updating companies.
+
     
     // Configure the cell...
     Company *company = [self.companies objectAtIndex:indexPath.row];
     
 // NSString* formattedNumber = [NSString stringWithFormat:@"%.02f", myFloat];  @"%.2f"
     
-    NSString *companyNameConcatCompanyStockPrice = [NSString stringWithFormat:@"%@- ask $%@/share", company.companyName, company.companyStockPrice];
+    NSString *companyNameConcatCompanyStockPrice = [NSString stringWithFormat:@"%@- $%@/share", company.companyName, company.companyStockPrice];
     cell.textLabel.text = companyNameConcatCompanyStockPrice;
     cell.imageView.image = [UIImage imageNamed:company.companyLogoName];
     

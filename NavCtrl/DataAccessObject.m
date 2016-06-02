@@ -108,17 +108,12 @@
         {
             while (sqlite3_step(statement)== SQLITE_ROW)
             {
-                NSString *companyId = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 0)];
-                NSString *companyName = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
-                NSString *companyTitle = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
-                NSString *companyLogoName = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 3)];
-                
                 Company *company = [[Company alloc]init];
-                company.companyId = companyId;
-                company.companyName = companyName;
-                company.companyTitle = companyTitle;
-                company.companyLogoName = companyLogoName;
-                
+                company.companyId = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 0)];
+                company.companyName = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
+                company.companyStockSymbol = [[NSString alloc] initWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
+                company.companyTitle = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 3)];
+                company.companyLogoName = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 4)];
                 [companiesLocal addObject:company];
             }
         }
@@ -138,9 +133,10 @@
     char *error;
     if(sqlite3_open([self.dbPath UTF8String], &companyDB) == SQLITE_OK)
     {
-        NSString *insertStmt = [NSString stringWithFormat:@"INSERT INTO COMPANY (companyName, companyTitle, companyLogoName) VALUES ('%@', '%@', '%@')", company.companyName, company.companyTitle, company.companyLogoName];
+        NSString *insertStmt = [NSString stringWithFormat:@"INSERT INTO COMPANY (companyName, stockSymbol, companyTitle, companyLogoName) VALUES ('%@', '%@', '%@', '%@')", company.companyName, company.companyStockSymbol, company.companyTitle, company.companyLogoName];
         
         const char *insert_stmt = [insertStmt UTF8String];
+
         if (sqlite3_exec(companyDB, insert_stmt, NULL, NULL, &error) == SQLITE_OK)
         {
             
@@ -157,7 +153,7 @@
     sqlite3_stmt *updateStatement;
     if(sqlite3_open([_dbPath UTF8String], &companyDB) == SQLITE_OK)
     {
-        NSString *querySql=[NSString stringWithFormat:@"UPDATE Company SET companyName='%@', companyTitle='%@' WHERE id='%@'", company.companyName, company.companyTitle, company.companyId];
+        NSString *querySql=[NSString stringWithFormat:@"UPDATE Company SET companyName='%@', stockSymbol='%@', companyTitle='%@' WHERE id='%@'", company.companyName, company.companyStockSymbol, company.companyTitle, company.companyId];
         
         const char*sql=[querySql UTF8String];
         if(sqlite3_prepare(companyDB,sql, -1, &updateStatement, NULL) == SQLITE_OK)

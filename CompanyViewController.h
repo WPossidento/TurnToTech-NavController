@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
+#import "DataAccessObject.h"
 
 
 @interface CompanyViewController : UITableViewController{
@@ -18,7 +19,8 @@
 //FIXME: remove this
 @property (nonatomic, retain) NSMutableDictionary *stockDetailsDictionary;
 
+@property (nonatomic, retain) DataAccessObject *dao;
 
-
+@property (nonatomic, strong) NSMutableString *stockURLString;
 
 @end

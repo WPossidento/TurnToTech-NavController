@@ -13,8 +13,8 @@
 @interface AddOrEditCompanyViewController : UIViewController
 
 @property (retain, nonatomic) IBOutlet UITextField *companyNameTextField;
-@property (retain, nonatomic) IBOutlet UITextField *companyTitleTextField;
 @property (retain, nonatomic) IBOutlet UITextField *companyStockSymbolTextField;
+@property (retain, nonatomic) IBOutlet UITextField *companyTitleTextField;
 @property (retain, nonatomic) IBOutlet UITextField *companyLogoNameTextField;
 
 @property (nonatomic) BOOL isEditing;

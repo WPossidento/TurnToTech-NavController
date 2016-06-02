@@ -33,6 +33,7 @@
         self.companyTitleTextField.text = @"";
         self.companyLogoNameTextField.text = @"";
     }
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,8 +58,8 @@
 - (void)dealloc {
     NSLog(@"dealloc add edit controller");
     [_companyNameTextField release];
-    [_companyTitleTextField release];
     [_companyStockSymbolTextField release];
+    [_companyTitleTextField release];
     [_companyLogoNameTextField release];
     [super dealloc];
 }
@@ -67,8 +68,8 @@
     
     if (self.isEditing) {
         _company.companyName = _companyNameTextField.text;
-        _company.companyTitle = _companyTitleTextField.text;
         _company.companyStockSymbol = _companyStockSymbolTextField.text;
+        _company.companyTitle = _companyTitleTextField.text;
         _company.companyLogoName = _companyLogoNameTextField.text;
         //[self.companyViewController.tableView reloadData];
         [self.navigationController popViewControllerAnimated:YES];
@@ -76,16 +77,16 @@
        [[DataAccessObject sharedObject] editCompany:_company];
     }
     
-    else if (![_companyNameTextField.text isEqualToString:@""] && ![_companyTitleTextField.text isEqualToString:@""] && ![_companyStockSymbolTextField.text isEqualToString:@""]) {
+    else if (![_companyNameTextField.text isEqualToString:@""] && ![_companyStockSymbolTextField.text isEqualToString:@""] &&![_companyTitleTextField.text isEqualToString:@""]) {
         Company* newCompany = [[Company alloc] init];
         newCompany.companyName = [[NSString alloc] init];
-        newCompany.companyTitle = [[NSString alloc] init];
         newCompany.companyStockSymbol = [[NSString alloc] init];
+        newCompany.companyTitle = [[NSString alloc] init];
         newCompany.companyLogoName = [[NSString alloc] init];
         newCompany.products = [[NSMutableArray alloc] init];
-        newCompany.companyName = _companyNameTextField.text;
+        newCompany.companyName = self.companyNameTextField.text;
+        newCompany.companyStockSymbol = self.companyStockSymbolTextField.text;
         newCompany.companyTitle = _companyTitleTextField.text;
-        newCompany.companyStockSymbol = _companyStockSymbolTextField.text;
 
 
         if (![_companyLogoNameTextField.text isEqualToString:@""]) {

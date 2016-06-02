@@ -7,14 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CompanyViewController.h"
+//#import "CompanyViewController.h"
 
 @interface Company : NSObject
 
 @property (nonatomic, retain) NSString *companyId;
 @property (nonatomic, retain) NSString *companyName;
-@property (nonatomic, retain) NSString *companyTitle;
 @property (nonatomic, retain) NSString *companyStockSymbol;
+@property (nonatomic, retain) NSString *companyTitle;
 @property (nonatomic, retain) NSString *companyLogoName;
 @property (nonatomic, retain) NSMutableArray *products;
 

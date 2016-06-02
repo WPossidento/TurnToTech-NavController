@@ -20,7 +20,7 @@
 
 @property(nonatomic, retain) WebViewController *webViewController;
 
-@property (nonatomic, retain) Company *company;
+@property (nonatomic, assign) Company *company;
 
 
 @end
