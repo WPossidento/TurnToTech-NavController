@@ -49,15 +49,12 @@
     self.navigationItem.rightBarButtonItems = @[self.editButtonItem, addButton];
     
     self.addOrEditProductViewController = [[AddOrEditProductViewController alloc] init];
-    
+    self.webViewController =  [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
+
     self.addOrEditProductViewController.productViewController = self; // method chaining aka relationship chaining
     [self.tableView setAllowsSelectionDuringEditing:true]; // Permit selection of rows while in editing mode.
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
-    
-    // Create a dataaccess object variable.
-    [[DataAccessObject sharedObject] createCompaniesAndTheirProducts];
     
 }
 
@@ -66,7 +63,6 @@
     
     [super viewWillAppear:animated];
     
-    self.addOrEditProductViewController.company = self.company;
 
     //self.companies = [[DataAccessObject sharedObject] companies];
     //self.products = [[DataAccessObject sharedObject] products];
@@ -106,10 +102,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     // Configure the cell...
-    Product *product = [self.company.products objectAtIndex:indexPath.row];
-    cell.textLabel.text = product.productName;
-    cell.imageView.image = [UIImage imageNamed:product.productImage];
-
+    cell.textLabel.text = [[self.company.products objectAtIndex:indexPath.row] productName];
+    cell.imageView.image = [UIImage imageNamed:[[self.company.products objectAtIndex:indexPath.row]productImage]];
     return cell;
 }
 
@@ -122,14 +116,12 @@
     
     if ([self.tableView isEditing]) {
         self.addOrEditProductViewController.isEditing = self.isEditing;
+        self.addOrEditProductViewController.company = self.company;
         [self.navigationController pushViewController:self.addOrEditProductViewController animated:YES];
         self.addOrEditProductViewController.product = product;
     }
     else {
         
-        self.webViewController =
-        [[WebViewController alloc]
-         initWithNibName:@"WebViewController" bundle:nil];
         self.webViewController.productURL = [self.company.products[indexPath.row] productURL];
         
         [self.navigationController
@@ -173,9 +165,9 @@
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-    NSString *stringToMove = self.company.products[fromIndexPath.row]; // NOTE: fromIndexPath.row
+    Product *productToMove = self.company.products[fromIndexPath.row]; // NOTE: fromIndexPath.row
     [self.company.products removeObjectAtIndex:fromIndexPath.row]; // NOTE: fromIndexPath.row
-    [self.company.products insertObject:stringToMove atIndex:toIndexPath.row]; // NOTE: toIndexPath.row
+    [self.company.products insertObject:productToMove atIndex:toIndexPath.row]; // NOTE: toIndexPath.row
     
 }
 
@@ -183,9 +175,9 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        Product* prodId = [self.company.products objectAtIndex:indexPath.row];
+        Product* product = [self.company.products objectAtIndex:indexPath.row];
         
-        [[DataAccessObject sharedObject] deleteProduct:prodId];
+        [[DataAccessObject sharedObject] deleteProduct:product];
         
         [self.company.products removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil]

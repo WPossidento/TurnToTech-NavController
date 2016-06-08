@@ -23,4 +23,12 @@
     
 }
 
+-(void)dealloc {
+    [_productName release];
+    [_product_id release];
+    [_productURL release];
+    [_productImage release];
+    [super dealloc];
+}
+
 @end

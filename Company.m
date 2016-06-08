@@ -13,5 +13,24 @@
 
 @implementation Company
 
+-(instancetype)init {
+    
+    self = [super init];
+    _products = [[NSMutableArray alloc] init];
+    return self;
+}
+
+-(void) dealloc {
+    [_companyId release];
+    [_companyName release];
+    [_companyTitle release];
+    [_companyLogoName release];
+    [_companyStockPrice release];
+    [_companyStockSymbol release];
+    [_products release];
+    
+    [super dealloc];
+}
+
 
 @end

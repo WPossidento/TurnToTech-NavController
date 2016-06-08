@@ -65,6 +65,7 @@
 
 -(instancetype)init {
     self = [super init];
+    self.companies = [[NSMutableArray alloc] init];
     [self createCompaniesAndTheirProducts];
     return self;
 }
@@ -97,7 +98,6 @@
 }
 
 -(void)getCompanyData {
-    NSMutableArray *companiesLocal = [[NSMutableArray alloc] init];
     
     sqlite3_stmt *statement;
     if (sqlite3_open([_dbPath UTF8String], &companyDB)==SQLITE_OK)
@@ -114,17 +114,16 @@
                 company.companyStockSymbol = [[NSString alloc] initWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
                 company.companyTitle = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 3)];
                 company.companyLogoName = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 4)];
-                [companiesLocal addObject:company];
+                [self.companies addObject:company];
+                [company release];
             }
         }
         
         sqlite3_close(companyDB);
     }
     
-    self.companies = companiesLocal;
-    
-    for(Company *c in self.companies){
-        [self getProductsData:c];
+    for(int i = 0 ; i < self.companies.count; i++){
+        [self getProductsData:self.companies[i]];
     }
 }
 
@@ -141,6 +140,7 @@
         {
             
             [self.companies addObject:company];
+            [company release];
             NSLog(@"company added");
             
         }
@@ -191,8 +191,6 @@
 
 -(void)getProductsData:(Company *)company {
     
-    NSMutableArray *productsLocal = [[NSMutableArray alloc] init];
-    
     sqlite3_stmt *statement;
     if (sqlite3_open([_dbPath UTF8String], &companyDB)==SQLITE_OK)
     {
@@ -202,21 +200,17 @@
         {
             while (sqlite3_step(statement)== SQLITE_ROW)
             {
-                NSString *company_id = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 0)];
-                NSString *productName = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
-                NSString *productURL = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
-                NSString *productImage = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 3)];
-                NSString *product_id = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 4)];
-                
                 Product *product = [[Product alloc]init];
-                product.company_id = company_id;
-                product.productName = productName;
-                product.productURL = productURL;
-                product.productImage = productImage;
-                product.product_id = product_id;
+                product.company_id = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 0)];
+                product.productName = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
+                product.productURL = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
+                product.productImage = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 3)];
+                product.product_id = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 4)];
                 
-                [productsLocal addObject:product];
+                [company.products addObject:product];
                 NSLog(@"Product added");
+                [product release];
+
                 
             }
         }
@@ -224,7 +218,7 @@
         sqlite3_close(companyDB);
     }
     
-    company.products = productsLocal;
+    
 }
 
 - (void)addProduct:(Product *)product toCompany:(Company*)company {
@@ -235,10 +229,10 @@
     
     //forin
 
-    
-    [company.products addObject: product];
     product.company_id = company.companyId;
     product.product_id = [NSString stringWithFormat:@"%lu", (unsigned long)company.products.count];
+   
+   
     
     char *error;
     if(sqlite3_open([self.dbPath UTF8String], &companyDB) == SQLITE_OK)
@@ -252,8 +246,12 @@
         {
 
             NSLog(@"product added");
+            [company.products addObject: product];
+
         }
     }
+    [product release];
+
 }
 
 -(void)editProduct:(Product *)product {

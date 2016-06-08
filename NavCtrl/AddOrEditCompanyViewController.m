@@ -24,6 +24,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     if (self.company && self.isEditing) {
         self.companyNameTextField.text = self.company.companyName;
         self.companyTitleTextField.text = self.company.companyTitle;
@@ -79,11 +80,15 @@
     
     else if (![_companyNameTextField.text isEqualToString:@""] && ![_companyStockSymbolTextField.text isEqualToString:@""] &&![_companyTitleTextField.text isEqualToString:@""]) {
         Company* newCompany = [[Company alloc] init];
-        newCompany.companyName = [[NSString alloc] init];
-        newCompany.companyStockSymbol = [[NSString alloc] init];
-        newCompany.companyTitle = [[NSString alloc] init];
-        newCompany.companyLogoName = [[NSString alloc] init];
+        
+//        newCompany.companyName = [[NSString alloc] init];
+//        newCompany.companyStockSymbol = [[NSString alloc] init];
+//        newCompany.companyTitle = [[NSString alloc] init];
+//        newCompany.companyLogoName = [[NSString alloc] init];
+        
         newCompany.products = [[NSMutableArray alloc] init];
+        
+        
         newCompany.companyName = self.companyNameTextField.text;
         newCompany.companyStockSymbol = self.companyStockSymbolTextField.text;
         newCompany.companyTitle = _companyTitleTextField.text;
@@ -101,6 +106,7 @@
         [[DataAccessObject sharedObject] addCompany:newCompany];
         
        // [self.companyViewController.companies addObject:newCompany];
+        [newCompany release];
 
        //[self.companyViewController.tableView reloadData];
         [self.navigationController popViewControllerAnimated:YES];

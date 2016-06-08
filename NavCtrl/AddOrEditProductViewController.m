@@ -24,6 +24,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 //    if (self.product && self.productViewController.isEditing) {
     if (self.company.products && self.isEditing) {
         self.productNameTextField.text = self.product.productName;
@@ -66,7 +67,7 @@
         _product.productName = _productNameTextField.text;
         _product.productURL = _productURLTextField.text;
         _product.productImage = _productImageTextField.text;
-        [self.productViewController.tableView reloadData];////////////////
+        [self.productViewController.tableView reloadData];
         [self.navigationController popViewControllerAnimated:YES];
         
         NSLog(@"REVISED product data = %@, %@, %@", _product.productName, _product.productURL, _product.productImage);
@@ -84,16 +85,12 @@
         //FIXME: use initializer!
         Product* newProduct = [[Product alloc] initWithProductName:self.productNameTextField.text withProductURL:self.productURLTextField.text withProductImage:self.productImageTextField.text];
         
-//        newProduct.company_id = _company.companyId;
-//        newProduct.productName = self.productNameTextField.text;
-//        newProduct.productURL = self.productURLTextField.text;
-        
         [[DataAccessObject sharedObject] addProduct:newProduct toCompany:self.company];
+        [newProduct release];
         
         [self.productViewController.tableView reloadData];
         [self.navigationController popViewControllerAnimated:YES];
         
-        NSLog(@"New product data = %@, %@, %@", newProduct.productName, newProduct.productURL, newProduct.productImage);
     }
 }
 

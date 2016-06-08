@@ -26,7 +26,7 @@
     self = [super initWithStyle:style];
     
     if (self) {
-        // Custom initialization
+        self.dao = [DataAccessObject sharedObject];
     }
     return self;
 }
@@ -51,20 +51,16 @@
 //  What is Data Access Object?
     
 //  In computer software, a data access object (DAO) is an object that provides an abstract interface to some type of database or other persistence mechanism. By mapping application calls to the persistence layer, the DAO provide some specific data operations without exposing details of the database.
-    
- // Create a dataaccess object variable.
-     [[DataAccessObject sharedObject] createCompaniesAndTheirProducts];
-//    [[DataAccessObject sharedObject] createCompaniesAndTheirProducts]; // Call the createCompaniesAndTheirProducts method and assign the results to dao - the new variable.
-   // [[DataAccessObject sharedObject] copyDBToFinalPath]; // Call the copyDBToFinalPath method and assign the results to dao - the new variable.
-    
-   // self.companies = [[DataAccessObject sharedObject] companies] ; // Assign the companies in dao to companies on self - the company view controller.
+
     
     self.title = @"Explore offerings from these companies";
     
     [self.tableView setAllowsSelectionDuringEditing:true]; // Permit selection of rows while in editing mode.
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     self.companies = [[DataAccessObject sharedObject] companies];
     [self getStockPrice];
     [self.tableView reloadData];
@@ -90,47 +86,31 @@
     
     self.stockURLString = [[NSMutableString alloc] initWithFormat:@"%@", tempStr];
     
-        NSLog(@"tempStr = %@", tempStr);
-    
     NSURL *url = [NSURL URLWithString:tempStr];
     
     NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             // Check if any data returned.
-            if (data != nil) {
-                
-            // Convert the returned data into a dictionary.
-            NSError *error;
-            NSMutableDictionary *returnedDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-                                                  
-            if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
-            }
-            else {
-                self.stockDetailsDictionary = [[returnedDict objectForKey:@""] objectAtIndex:0];
-                }
-            NSLog(@"%@", _stockDetailsDictionary);
-            }
-                                              
-            else if (data == nil) {
-                NSLog(@"The data are nil");
-            }
-            NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-            NSLog(@"\n\nThe string is: \n%@\n",string);
-                                              
-            NSArray *companyStockPriceArray = [string componentsSeparatedByString:@"\n"];
-            long n = [companyStockPriceArray count] - 1; // n = # of elements in the array - Yahoo! adds an extra so subtract 1!
-            //NSLog(@"n = %lu", n);
+        if (data != nil) {
+            NSLog(@"\n\nThe string is: \n%@\n",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+            
+            NSMutableArray *companyStockPriceArray = (NSMutableArray*)[[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] componentsSeparatedByString:@"\n"];
+            [companyStockPriceArray removeLastObject];
+            long n = [companyStockPriceArray count];
             for (int i = 0; i < n; i++) { // i = counter for looping through array elements
                 NSLog(@"\n\ncompanyStockPriceArray = %@\n\n", companyStockPriceArray[i]);
                 [self.companies[i] setCompanyStockPrice:companyStockPriceArray[i]];
             }
-                                              
             // Get back to main thread to reload the table:
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
-                });
-                                              
-            }];
+            });
+
+            // Convert the returned data into a dictionary.
+        } else if (data == nil) {
+            NSLog(@"The data are nil");
+        }
+        
+    }];
     
     [downloadTask resume];
 
@@ -262,14 +242,14 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Company *company = [self.companies objectAtIndex:[indexPath row]];
+    Company * company = [self.companies objectAtIndex:[indexPath row]];
     
     if ([self.tableView isEditing]) {
         //            [self.navigationController pushViewController:self.addOrEditcompanyViewController animated:YES];
         // AVOID passing CompanyViewController to AddOrEditCompanyViewController by removing "self." as follows:
         self.addOrEditcompanyViewController.isEditing = self.isEditing;
-        [self.navigationController pushViewController:_addOrEditcompanyViewController animated:YES];
-        _addOrEditcompanyViewController.company = company;
+        [self.navigationController pushViewController:self.addOrEditcompanyViewController animated:YES];
+        self.addOrEditcompanyViewController.company = company;
         
     } else {
         
