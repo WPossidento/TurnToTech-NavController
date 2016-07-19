@@ -471,7 +471,7 @@
     
     [self.managedObjectContext undo];
     
-    [self reloadDataFromContext];
+    [self reloadDataFromContext];    
    
 }
 
