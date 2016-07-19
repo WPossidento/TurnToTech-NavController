@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -10,7 +10,6 @@
                 <outlet property="companyLogoNameTextField" destination="wzi-oN-6B4" id="dqS-Xb-NMc"/>
                 <outlet property="companyNameTextField" destination="rIn-BM-YO3" id="6TT-Pr-fdr"/>
                 <outlet property="companyStockSymbolTextField" destination="5Va-Nf-uDA" id="bbQ-0h-bK4"/>
-                <outlet property="companyTitleTextField" destination="P0r-0R-g48" id="Kje-dk-AWk"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -42,17 +41,6 @@
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Company title:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deJ-W0-fHV">
-                    <rect key="frame" x="8" y="296" width="584" height="30"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Company title (required)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P0r-0R-g48">
-                    <rect key="frame" x="8" y="327" width="584" height="30"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Company stock symbol:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fM-Qy-8vu">
                     <rect key="frame" x="8" y="210" width="584" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -65,25 +53,25 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Company logo name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sF1-Z8-WXv">
-                    <rect key="frame" x="8" y="385" width="584" height="30"/>
+                    <rect key="frame" x="8" y="300" width="584" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="company logo name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wzi-oN-6B4">
-                    <rect key="frame" x="8" y="416" width="584" height="30"/>
+                    <rect key="frame" x="8" y="331" width="584" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YGl-IO-SBo">
-                    <rect key="frame" x="133" y="485" width="105" height="30"/>
+                    <rect key="frame" x="133" y="400" width="105" height="30"/>
                     <state key="normal" title="Submit"/>
                     <connections>
                         <action selector="SubmitButton:" destination="-1" eventType="touchUpInside" id="Ld8-sp-BA4"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dm4-kv-0E3">
-                    <rect key="frame" x="388" y="485" width="105" height="30"/>
+                    <rect key="frame" x="388" y="400" width="105" height="30"/>
                     <state key="normal" title="Cancel"/>
                     <connections>
                         <action selector="CancelButton:" destination="-1" eventType="touchUpInside" id="m6N-Q0-ZQR"/>

@@ -19,10 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 
-    
-    NSURL *myURL = [NSURL URLWithString:_productURL]; // Converts string (_productURL) to URL (*myURL).
-
-    NSURLRequest *myRequest = [NSURLRequest requestWithURL:myURL]; // NSURLRequest objects represent a URL load request in a manner independent of protocol and URL scheme. NSURLRequest encapsulates two basic data elements of a load request: the URL to load, and the policy to use when consulting the URL content cache made available by the implementation.
+   // NSURLRequest objects represent a URL load request in a manner independent of protocol and URL scheme. NSURLRequest encapsulates two basic data elements of a load request: the URL to load, and the policy to use when consulting the URL content cache made available by the implementation.
     
 // This is for the old UIWebView:
 //    [myWebView loadRequest:myRequest];
@@ -30,11 +27,18 @@
 // Had to go to Project, click on General, scroll down to Linked Frameworks and Libraries, and add WebKit.framework as Optional to permit WKWebView:
     _wkWebView = [[WKWebView alloc] initWithFrame:self.view.frame];
     
-    [_wkWebView loadRequest:myRequest];
+   
     
     _wkWebView.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
     [self.view addSubview:_wkWebView];
 
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    NSURL *myURL = [NSURL URLWithString:_productURL]; // Converts string (_productURL) to URL (*myURL).
+    
+    NSURLRequest *myRequest = [NSURLRequest requestWithURL:myURL];
+    [_wkWebView loadRequest:myRequest];
 }
 
 - (void)didReceiveMemoryWarning {

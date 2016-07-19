@@ -26,6 +26,8 @@
 		520CEC911CC542250068BC13 /* AddOrEditProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 520CEC8F1CC542250068BC13 /* AddOrEditProductViewController.m */; };
 		520CEC921CC542250068BC13 /* AddOrEditProductViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 520CEC901CC542250068BC13 /* AddOrEditProductViewController.xib */; };
 		521504331CB5CE6E0083F81A /* DataAccessObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 521504321CB5CE6E0083F81A /* DataAccessObject.m */; };
+		521ADA061D3003F600044D58 /* ManagedProduct+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 521ADA031D3003F600044D58 /* ManagedProduct+CoreDataProperties.m */; };
+		521ADA071D3003F600044D58 /* ManagedProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 521ADA051D3003F600044D58 /* ManagedProduct.m */; };
 		522B205F1CD7DF2200AFD09A /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 522B205E1CD7DF2200AFD09A /* libsqlite3.0.tbd */; };
 		522EB09C1CAD7EF500756FD3 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 522EB09B1CAD7EF500756FD3 /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		523502831CAAE7DB0033FE59 /* logo_Apple_48x48.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 523502821CAAE7DB0033FE59 /* logo_Apple_48x48.jpg */; };
@@ -42,6 +44,10 @@
 		527564A51CBEDEC7006C8A64 /* AddOrEditCompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 527564A31CBEDEC7006C8A64 /* AddOrEditCompanyViewController.xib */; };
 		5293D7331CB30EA100DD50BD /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293D7321CB30EA100DD50BD /* Company.m */; };
 		5293D7361CB3102A00DD50BD /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293D7351CB3102A00DD50BD /* Product.m */; };
+		52A0D0DF1D2F134B000A1A88 /* ManagedCompany+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A0D0DC1D2F134B000A1A88 /* ManagedCompany+CoreDataProperties.m */; };
+		52A0D0E01D2F134B000A1A88 /* ManagedCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A0D0DE1D2F134B000A1A88 /* ManagedCompany.m */; };
+		52BC2F0C1D120360005074B1 /* model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 52BC2F0A1D120360005074B1 /* model.xcdatamodeld */; };
+		52EB93121D1B4F27007B7E6C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52EB93111D1B4F27007B7E6C /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +88,10 @@
 		520CEC901CC542250068BC13 /* AddOrEditProductViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddOrEditProductViewController.xib; sourceTree = "<group>"; };
 		521504311CB5CE6E0083F81A /* DataAccessObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataAccessObject.h; sourceTree = "<group>"; };
 		521504321CB5CE6E0083F81A /* DataAccessObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataAccessObject.m; sourceTree = "<group>"; };
+		521ADA021D3003F600044D58 /* ManagedProduct+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ManagedProduct+CoreDataProperties.h"; sourceTree = "<group>"; };
+		521ADA031D3003F600044D58 /* ManagedProduct+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ManagedProduct+CoreDataProperties.m"; sourceTree = "<group>"; };
+		521ADA041D3003F600044D58 /* ManagedProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedProduct.h; sourceTree = "<group>"; };
+		521ADA051D3003F600044D58 /* ManagedProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedProduct.m; sourceTree = "<group>"; };
 		522B205E1CD7DF2200AFD09A /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		522EB09B1CAD7EF500756FD3 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		523502821CAAE7DB0033FE59 /* logo_Apple_48x48.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo_Apple_48x48.jpg; sourceTree = "<group>"; };
@@ -102,6 +112,12 @@
 		5293D7321CB30EA100DD50BD /* Company.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Company.m; path = ../Company.m; sourceTree = "<group>"; };
 		5293D7341CB3102A00DD50BD /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Product.h; path = ../Product.h; sourceTree = "<group>"; };
 		5293D7351CB3102A00DD50BD /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Product.m; path = ../Product.m; sourceTree = "<group>"; };
+		52A0D0DB1D2F134B000A1A88 /* ManagedCompany+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ManagedCompany+CoreDataProperties.h"; sourceTree = "<group>"; };
+		52A0D0DC1D2F134B000A1A88 /* ManagedCompany+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ManagedCompany+CoreDataProperties.m"; sourceTree = "<group>"; };
+		52A0D0DD1D2F134B000A1A88 /* ManagedCompany.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedCompany.h; sourceTree = "<group>"; };
+		52A0D0DE1D2F134B000A1A88 /* ManagedCompany.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedCompany.m; sourceTree = "<group>"; };
+		52BC2F0B1D120360005074B1 /* model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = model.xcdatamodel; sourceTree = "<group>"; };
+		52EB93111D1B4F27007B7E6C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52EB93121D1B4F27007B7E6C /* CoreData.framework in Frameworks */,
 				522B205F1CD7DF2200AFD09A /* libsqlite3.0.tbd in Frameworks */,
 				522EB09C1CAD7EF500756FD3 /* WebKit.framework in Frameworks */,
 				48A656B718163BF200746D36 /* CoreGraphics.framework in Frameworks */,
@@ -150,6 +167,7 @@
 				527564A31CBEDEC7006C8A64 /* AddOrEditCompanyViewController.xib */,
 				521504311CB5CE6E0083F81A /* DataAccessObject.h */,
 				521504321CB5CE6E0083F81A /* DataAccessObject.m */,
+				52BC2F0A1D120360005074B1 /* model.xcdatamodeld */,
 				483796CD1BCBF7EB0062D5AB /* ProductViewController */,
 				5293D7311CB30EA100DD50BD /* Company.h */,
 				5293D7321CB30EA100DD50BD /* Company.m */,
@@ -177,6 +195,14 @@
 		48A656A818163BF200746D36 = {
 			isa = PBXGroup;
 			children = (
+				521ADA021D3003F600044D58 /* ManagedProduct+CoreDataProperties.h */,
+				521ADA031D3003F600044D58 /* ManagedProduct+CoreDataProperties.m */,
+				521ADA041D3003F600044D58 /* ManagedProduct.h */,
+				521ADA051D3003F600044D58 /* ManagedProduct.m */,
+				52A0D0DB1D2F134B000A1A88 /* ManagedCompany+CoreDataProperties.h */,
+				52A0D0DC1D2F134B000A1A88 /* ManagedCompany+CoreDataProperties.m */,
+				52A0D0DD1D2F134B000A1A88 /* ManagedCompany.h */,
+				52A0D0DE1D2F134B000A1A88 /* ManagedCompany.m */,
 				48A656BA18163BF200746D36 /* NavCtrl */,
 				48A656D318163BF200746D36 /* NavCtrlTests */,
 				48A656B318163BF200746D36 /* Frameworks */,
@@ -196,6 +222,7 @@
 		48A656B318163BF200746D36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				52EB93111D1B4F27007B7E6C /* CoreData.framework */,
 				522B205E1CD7DF2200AFD09A /* libsqlite3.0.tbd */,
 				522EB09B1CAD7EF500756FD3 /* WebKit.framework */,
 				48A656B418163BF200746D36 /* Foundation.framework */,
@@ -300,6 +327,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = qcdDemo;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Aditya Narayan";
 				TargetAttributes = {
@@ -365,12 +393,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52BC2F0C1D120360005074B1 /* model.xcdatamodeld in Sources */,
+				521ADA061D3003F600044D58 /* ManagedProduct+CoreDataProperties.m in Sources */,
 				521504331CB5CE6E0083F81A /* DataAccessObject.m in Sources */,
 				5293D7361CB3102A00DD50BD /* Product.m in Sources */,
 				48A656E618163C1B00746D36 /* CompanyViewController.m in Sources */,
+				521ADA071D3003F600044D58 /* ManagedProduct.m in Sources */,
 				5293D7331CB30EA100DD50BD /* Company.m in Sources */,
 				527564A41CBEDEC7006C8A64 /* AddOrEditCompanyViewController.m in Sources */,
 				5235028D1CAB12B60033FE59 /* WebViewController.m in Sources */,
+				52A0D0E01D2F134B000A1A88 /* ManagedCompany.m in Sources */,
+				52A0D0DF1D2F134B000A1A88 /* ManagedCompany+CoreDataProperties.m in Sources */,
 				520CEC911CC542250068BC13 /* AddOrEditProductViewController.m in Sources */,
 				48A656C518163BF200746D36 /* NavControllerAppDelegate.m in Sources */,
 				48A656C118163BF200746D36 /* main.m in Sources */,
@@ -494,12 +527,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NavCtrl/NavCtrl-Prefix.pch";
 				INFOPLIST_FILE = "NavCtrl/NavCtrl-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "qcd.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -509,10 +545,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NavCtrl/NavCtrl-Prefix.pch";
 				INFOPLIST_FILE = "NavCtrl/NavCtrl-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "qcd.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -592,6 +630,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		52BC2F0A1D120360005074B1 /* model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				52BC2F0B1D120360005074B1 /* model.xcdatamodel */,
+			);
+			currentVersion = 52BC2F0B1D120360005074B1 /* model.xcdatamodel */;
+			path = model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 48A656A918163BF200746D36 /* Project object */;
 }

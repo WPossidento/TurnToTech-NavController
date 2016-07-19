@@ -9,7 +9,6 @@
 #import "AddOrEditCompanyViewController.h"
 #import "CompanyViewController.h"
 #import "Company.h"
-
 #import "DataAccessObject.h"
 
 @interface AddOrEditCompanyViewController ()
@@ -27,11 +26,11 @@
     [super viewWillAppear:animated];
     if (self.company && self.isEditing) {
         self.companyNameTextField.text = self.company.companyName;
-        self.companyTitleTextField.text = self.company.companyTitle;
+//        self.companyTitleTextField.text = self.company.companyTitle;
         self.companyLogoNameTextField.text = self.company.companyLogoName;
     } else {
         self.companyNameTextField.text = @"";
-        self.companyTitleTextField.text = @"";
+//        self.companyTitleTextField.text = @"";
         self.companyLogoNameTextField.text = @"";
     }
     
@@ -60,55 +59,46 @@
     NSLog(@"dealloc add edit controller");
     [_companyNameTextField release];
     [_companyStockSymbolTextField release];
-    [_companyTitleTextField release];
     [_companyLogoNameTextField release];
     [super dealloc];
 }
 
 - (IBAction)SubmitButton:(id)sender {
     
+    DataAccessObject *dao = [DataAccessObject sharedObject];
+    
     if (self.isEditing) {
         _company.companyName = _companyNameTextField.text;
         _company.companyStockSymbol = _companyStockSymbolTextField.text;
-        _company.companyTitle = _companyTitleTextField.text;
         _company.companyLogoName = _companyLogoNameTextField.text;
-        //[self.companyViewController.tableView reloadData];
+        
         [self.navigationController popViewControllerAnimated:YES];
         
-       [[DataAccessObject sharedObject] editCompany:_company];
+       [[DataAccessObject sharedObject] modifyCompany:_company];
+        
+        
     }
     
-    else if (![_companyNameTextField.text isEqualToString:@""] && ![_companyStockSymbolTextField.text isEqualToString:@""] &&![_companyTitleTextField.text isEqualToString:@""]) {
+    else if (![_companyNameTextField.text isEqualToString:@""] && ![_companyStockSymbolTextField.text isEqualToString:@""]) {
         Company* newCompany = [[Company alloc] init];
         
-//        newCompany.companyName = [[NSString alloc] init];
-//        newCompany.companyStockSymbol = [[NSString alloc] init];
-//        newCompany.companyTitle = [[NSString alloc] init];
-//        newCompany.companyLogoName = [[NSString alloc] init];
-        
         newCompany.products = [[NSMutableArray alloc] init];
-        
-        
         newCompany.companyName = self.companyNameTextField.text;
         newCompany.companyStockSymbol = self.companyStockSymbolTextField.text;
-        newCompany.companyTitle = _companyTitleTextField.text;
-
+        newCompany.companyLocationInTable = [NSNumber numberWithInt:[dao.companies count]];
 
         if (![_companyLogoNameTextField.text isEqualToString:@""]) {
             newCompany.companyLogoName = _companyLogoNameTextField.text;
         } else {
             newCompany.companyLogoName = @"logo_default_48x48.jpg";
         }
-        
+        [[[DataAccessObject sharedObject] companies] addObject:newCompany];
         //call DAO addCompany function
-//        [[DataAccessObject sharedObject].companies addObject:newCompany]; //move this to DAO addCompany function
-
-        [[DataAccessObject sharedObject] addCompany:newCompany];
+        [[DataAccessObject sharedObject] createCompanyWithName:newCompany.companyName companyStockSymbol:newCompany.companyStockSymbol companyLogoName:newCompany.companyLogoName companyLocationInTable:newCompany.companyLocationInTable];
         
-       // [self.companyViewController.companies addObject:newCompany];
+        
         [newCompany release];
 
-       //[self.companyViewController.tableView reloadData];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }

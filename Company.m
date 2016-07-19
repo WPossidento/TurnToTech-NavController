@@ -21,13 +21,13 @@
 }
 
 -(void) dealloc {
-    [_companyId release];
+//    [_companyId release];
     [_companyName release];
-    [_companyTitle release];
     [_companyLogoName release];
     [_companyStockPrice release];
     [_companyStockSymbol release];
     [_products release];
+    [_companyLocationInTable release];
     
     [super dealloc];
 }

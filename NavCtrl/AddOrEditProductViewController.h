@@ -25,6 +25,8 @@
 - (IBAction)CancelButton:(id)sender;
 
 @property (nonatomic, retain) NSString *productURL;
+@property int productIndex;
+
 
 @property (nonatomic, retain) NSMutableArray *companies;
 @property (nonatomic, retain) NSMutableArray *products;

@@ -12,6 +12,7 @@
 #import "DataAccessObject.h"
 #import "AddOrEditCompanyViewController.h"
 #import "NavControllerAppDelegate.h"
+#import "ManagedCompany.h"
 
 @interface CompanyViewController ()
 @property (nonatomic, retain) IBOutlet AddOrEditCompanyViewController *addOrEditcompanyViewController;
@@ -37,26 +38,24 @@
 
     // Uncomment the following line to preserve selection between presentations.
      self.clearsSelectionOnViewWillAppear = NO;
- 
+    
+    // Undo button:
+    UIBarButtonItem *undoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo target:self action:@selector(undoButtonClicked)];
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.rightBarButtonItems = @[self.editButtonItem, undoButton];
     
     // Display an Add button in the navigation bar for this controller:
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(addButtonTapped:)]; // Colon after addButtonTapped indicates that the method takes an argument.
     self.navigationItem.leftBarButtonItem = addButton;
     
     self.addOrEditcompanyViewController = [[AddOrEditCompanyViewController alloc] init];
-   // self.addOrEditcompanyViewController.companyViewController = self; // method chaining aka relationship chaining
-
-//  What is Data Access Object?
-    
-//  In computer software, a data access object (DAO) is an object that provides an abstract interface to some type of database or other persistence mechanism. By mapping application calls to the persistence layer, the DAO provide some specific data operations without exposing details of the database.
-
     
     self.title = @"Explore offerings from these companies";
     
     [self.tableView setAllowsSelectionDuringEditing:true]; // Permit selection of rows while in editing mode.
-    
+    self.dao = [DataAccessObject sharedObject];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -174,9 +173,11 @@
 
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSString* compId = [[self.companies objectAtIndex:indexPath.row] companyId];
+//        NSString* compId = [[self.companies objectAtIndex:indexPath.row] companyId];
+//  #this is not expecting a string, it's expecting an integer, is an index not a company id
+        NSUInteger index = indexPath.row;
         
-        [[DataAccessObject sharedObject] deleteCompany:compId];
+        [[DataAccessObject sharedObject] deleteCompany:index];
         [self.companies removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil]
                          withRowAnimation:UITableViewRowAnimationTop];
@@ -198,13 +199,6 @@
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-
-// For abandoned idea of using Info button = Accessory Detail Button for updating companies:
-//-(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(nonnull NSIndexPath *)indexPath {
-//    
-//    NSLog(@"If this displays - good!");
-//    
-//}
 
 /*
 // Override to support editing the table view.
@@ -230,10 +224,32 @@
 // RE-ORDERING: Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
+    Company *companyToMove = self.companies[fromIndexPath.row]; // NOTE: fromIndexPath.row
+    [companyToMove retain];
     
-    NSString *stringToMove = self.companies[fromIndexPath.row]; // NOTE: fromIndexPath.row
-    [self.companies removeObjectAtIndex:fromIndexPath.row]; // NOTE: fromIndexPath.row
-    [self.companies insertObject:stringToMove atIndex:toIndexPath.row]; // NOTE: toIndexPath.row
+    Company *managedCompanyToMove = self.dao.managedCompanies[fromIndexPath.row]; // NOTE: fromIndexPath.row
+    [managedCompanyToMove retain];
+
+    [self.dao.companies removeObjectAtIndex:fromIndexPath.row]; // NOTE: fromIndexPath.row
+    [self.dao.managedCompanies removeObjectAtIndex:fromIndexPath.row]; // NOTE: fromIndexPath.row
+
+    [self.dao.companies insertObject:companyToMove atIndex:toIndexPath.row]; // NOTE: toIndexPath.row
+    [companyToMove release];
+    
+    [self.dao.managedCompanies insertObject:managedCompanyToMove atIndex:toIndexPath.row]; // NOTE: toIndexPath.row
+    [managedCompanyToMove release];
+
+    int kount = [self.dao.companies count];
+    for (int i=0; i < kount; i++) {
+        
+        self.dao.companies[i].companyLocationInTable = [NSNumber numberWithInt:i];
+        ManagedCompany *mc = self.dao.managedCompanies[i];
+        [mc setCompanyLocationInTable:[NSNumber numberWithInt:i]];
+        NSLog(@"MANAGED COMPANY NAME: %@ and POSITION: %@\n", mc.companyName, mc.companyLocationInTable);
+    }
+//    [self.dao.managedObjectContext save:nil]; // Moved to NavControllerAppDelegate.m
+
+    [self.tableView reloadData];
 
 }
 
@@ -245,7 +261,6 @@
     Company * company = [self.companies objectAtIndex:[indexPath row]];
     
     if ([self.tableView isEditing]) {
-        //            [self.navigationController pushViewController:self.addOrEditcompanyViewController animated:YES];
         // AVOID passing CompanyViewController to AddOrEditCompanyViewController by removing "self." as follows:
         self.addOrEditcompanyViewController.isEditing = self.isEditing;
         [self.navigationController pushViewController:self.addOrEditcompanyViewController animated:YES];
@@ -253,9 +268,7 @@
         
     } else {
         
-        self.productViewController.title = company.companyTitle;
-        
-//        self.productViewController.company.products = company.products;
+        self.productViewController.title = company.companyName;
         
         self.productViewController.company = company;
         
@@ -263,6 +276,13 @@
          pushViewController: self.productViewController
          animated:YES];
     }
+}
+
+-(void) undoButtonClicked { // to undo re-arranging, editing, adding, or deleting of companies
+    
+    [self.dao undoLastAction];
+    
+    [self.tableView reloadData];
 }
 
 @end

@@ -13,6 +13,8 @@
 #import "DataAccessObject.h"
 #import "AddOrEditProductViewController.h"
 #import "AddOrEditCompanyViewController.h"
+#import "ManagedCompany.h"
+#import "ManagedProduct.h"
 
 @interface ProductViewController ()
 
@@ -37,16 +39,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     // Uncomment the following line to preserve selection between presentations.
      self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
 //    self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    UIBarButtonItem *undoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo target:self action:@selector(undoButtonClicked)];
+    
     // Display an Add button in the navigation bar for this controller:
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(addButtonTapped:)]; // Colon after addButtonTapped indicates that the method takes an argument.
-    self.navigationItem.rightBarButtonItems = @[self.editButtonItem, addButton];
+
+    self.navigationItem.rightBarButtonItems = @[self.editButtonItem, undoButton, addButton];
     
     self.addOrEditProductViewController = [[AddOrEditProductViewController alloc] init];
     self.webViewController =  [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
@@ -55,6 +60,8 @@
     [self.tableView setAllowsSelectionDuringEditing:true]; // Permit selection of rows while in editing mode.
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
+    self.dao = [DataAccessObject sharedObject];
     
 }
 
@@ -119,6 +126,7 @@
         self.addOrEditProductViewController.company = self.company;
         [self.navigationController pushViewController:self.addOrEditProductViewController animated:YES];
         self.addOrEditProductViewController.product = product;
+        self.addOrEditProductViewController.productIndex = indexPath.row;
     }
     else {
         
@@ -130,7 +138,6 @@
         
     }
     
-
 }
 /*
 // Override to support conditional editing of the table view.
@@ -166,19 +173,51 @@
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
     Product *productToMove = self.company.products[fromIndexPath.row]; // NOTE: fromIndexPath.row
-    [self.company.products removeObjectAtIndex:fromIndexPath.row]; // NOTE: fromIndexPath.row
-    [self.company.products insertObject:productToMove atIndex:toIndexPath.row]; // NOTE: toIndexPath.row
+    [productToMove retain];
     
+    NSUInteger indexOfCompany = [self.dao.companies indexOfObject:self.company];
+    ManagedCompany *mc = [self.dao.managedCompanies objectAtIndex:indexOfCompany];
+    ManagedProduct *managedProductToMove = [mc.managedProduct objectAtIndex:fromIndexPath.row];
+    [managedProductToMove retain];
+   
+    [self.company.products removeObjectAtIndex:fromIndexPath.row]; // NOTE: fromIndexPath.row
+    [mc.managedProduct removeObjectAtIndex:fromIndexPath.row]; // NOTE: fromIndexPath.row
+    
+    [self.company.products insertObject:productToMove atIndex:toIndexPath.row]; // NOTE: toIndexPath.row
+    [productToMove release];
+    
+    [mc.managedProduct insertObject:managedProductToMove atIndex:toIndexPath.row]; // NOTE: toIndexPath.row
+    [managedProductToMove release];
+    
+        int kount = [self.company.products count];
+        for (int i=0; i < kount; i++) {
+            Product *product = self.company.products[i];
+            product.productLocationInTable = [NSNumber numberWithInt:i];
+            ManagedProduct *mp = mc.managedProduct[i];
+            // get managed company
+            // get products from managed company
+            [mp setProductLocationInTable:[NSNumber numberWithInt:i]];
+            
+        }
+    
+//    for (Product *product in self.company.products) {
+//        
+//    }
+    
+//        [self.dao.managedObjectContext save:nil]; // Moved to NavControllerAppDelegate.m
+    
+        [self.tableView reloadData];
 }
+
 
 // Add delete functionality for the products:
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        Product* product = [self.company.products objectAtIndex:indexPath.row];
         
-        [[DataAccessObject sharedObject] deleteProduct:product];
+        NSUInteger index = indexPath.row;
         
+        [[DataAccessObject sharedObject] deleteProduct:index forCompany:self.company];
         [self.company.products removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil]
                          withRowAnimation:UITableViewRowAnimationTop];
@@ -194,6 +233,16 @@
     
 }
 
+-(void) undoButtonClicked { // to undo re-arranging, editing, adding, or deleting of products
+    
+    int index = [self.dao.companies indexOfObject:self.company];
+    
+    [self.dao undoLastAction];
+    
+    self.company = [self.dao.companies objectAtIndex:index];
+    
+    [self.tableView reloadData];
+}
 
 /*
 // Override to support rearranging the table view.

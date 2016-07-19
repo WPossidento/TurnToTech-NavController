@@ -63,7 +63,7 @@
     
 //    if ([self.productViewController.tableView isEditing]) {
     if (self.isEditing) {
-        _product.company_id = _company.companyId;
+        _product.company_id = [NSString stringWithFormat:@"%d", _company.companyId];
         _product.productName = _productNameTextField.text;
         _product.productURL = _productURLTextField.text;
         _product.productImage = _productImageTextField.text;
@@ -73,7 +73,8 @@
         NSLog(@"REVISED product data = %@, %@, %@", _product.productName, _product.productURL, _product.productImage);
         
 //       [[DataAccessObject sharedObject] editCompany:_company];
-        [[DataAccessObject sharedObject] editProduct:_product];
+//       [[DataAccessObject sharedObject] modifyProduct:_product];
+        [[DataAccessObject sharedObject] modifyProduct:self.productIndex forCompany:_company forProduct:_product];
     }
         
     else if (![_productNameTextField.text isEqualToString:@""] && ![_productURLTextField.text isEqualToString:@""]) {
@@ -83,10 +84,10 @@
         }
         
         //FIXME: use initializer!
-        Product* newProduct = [[Product alloc] initWithProductName:self.productNameTextField.text withProductURL:self.productURLTextField.text withProductImage:self.productImageTextField.text];
         
-        [[DataAccessObject sharedObject] addProduct:newProduct toCompany:self.company];
-        [newProduct release];
+        [[DataAccessObject sharedObject] addProduct:self.productNameTextField.text productURL:self.productURLTextField.text productImage:self.productImageTextField.text forCompany:self.company];
+
+//        [product release];
         
         [self.productViewController.tableView reloadData];
         [self.navigationController popViewControllerAnimated:YES];

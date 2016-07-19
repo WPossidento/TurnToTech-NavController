@@ -10,6 +10,9 @@
 #import <WebKit/WebKit.h>
 #import "Product.h"
 #import "Company.h"
+#import "DataAccessObject.h"
+#import "ManagedCompany.h"
+#import "ManagedProduct.h"
 
 #import "WebViewController.h"
 
@@ -21,6 +24,8 @@
 @property(nonatomic, retain) WebViewController *webViewController;
 
 @property (nonatomic, assign) Company *company;
+
+@property (nonatomic, retain) DataAccessObject *dao;
 
 
 @end

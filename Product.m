@@ -10,15 +10,15 @@
 
 @implementation Product
 
-//-(instancetype)initWithProductName:(NSString*)productName withProductURL:(NSString*)productURL withProductImage:(NSString*)productImage withProduct_id:(NSString*)product_id;
--(instancetype)initWithProductName:(NSString*)productName withProductURL:(NSString*)productURL withProductImage:(NSString*)productImage
+-(instancetype)initWithProductName:(NSString*)productName withProductURL:(NSString*)productURL withProductImage:(NSString*)productImage withProductLocationInTable:(NSNumber*)productLocationInTable
  {
     
-//    self.companyName = companyName;
-    self.productName = productName;
-    self.productURL = productURL;
-    self.productImage = productImage;
-    self.product_id = _product_id;
+    self.productName = [productName retain];
+    self.productURL = [productURL retain];
+    self.productImage = [productImage retain];
+     
+#warning this doesn't work, fix it, set to zero or another number
+    self.productLocationInTable = [_productLocationInTable retain];
     return self;
     
 }
@@ -28,6 +28,8 @@
     [_product_id release];
     [_productURL release];
     [_productImage release];
+    [_productLocationInTable release];
+    
     [super dealloc];
 }
 
