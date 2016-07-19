@@ -1,4 +1,4 @@
-//
+
 //  ManagedProduct.h
 //  NavCtrl
 //

@@ -1,4 +1,4 @@
-//
+
 //  ManagedCompany+CoreDataProperties.h
 //  NavCtrl
 //

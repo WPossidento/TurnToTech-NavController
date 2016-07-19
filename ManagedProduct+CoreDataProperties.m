@@ -1,4 +1,4 @@
-//
+
 //  ManagedProduct+CoreDataProperties.m
 //  NavCtrl
 //

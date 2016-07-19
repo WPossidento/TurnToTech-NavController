@@ -1,4 +1,4 @@
-//
+
 //  ManagedProduct.m
 //  NavCtrl
 //

@@ -167,8 +167,6 @@
 // #error created managed products and add them to the managed company
         
         for (Product *product in company.products) {
-        
-//            NSManagedObject *managedProduct = [[NSManagedObject alloc] initWithEntity:entityCompany insertIntoManagedObjectContext:self.managedObjectContext];
             
             ManagedProduct *managedProduct = [[ManagedProduct alloc] initWithEntity:entityProduct insertIntoManagedObjectContext:self.managedObjectContext];
             managedProduct.productName = product.productName;

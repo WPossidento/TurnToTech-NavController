@@ -14,7 +14,7 @@
 
 @interface DataAccessObject : NSObject
 
-//@property (nonatomic, retain) NSMutableArray *products; // add this?
+// @property (nonatomic, retain) NSMutableArray *products; // add this?
 @property (nonatomic, retain) NSMutableArray<Company*> *companies;
 @property (nonatomic, retain) NSString *dbPath;
 @property (nonatomic, assign) Company *currentCompany;
